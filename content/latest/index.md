@@ -14,6 +14,26 @@ mss-boot分为四个项目
 其中mss-boot为核心框架，mss-boot-monorepo中的服务为所有后端微服务，mss-boot-frontend为后台前端服务，
 mss-boot-template为代码生成提供模板支持。mss-boot主要提供了微服务的基础开发框架，并依托istio进行微服务治理。
 
+## 前置安装
+
+### protoc
+mac安装：
+```shell
+brew install protobuf
+```
+
+### Go Plugins
+```shell
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+export PATH="$PATH:$(go env GOPATH)/bin"
+```
+
+### Generate pb.go
+```shell
+protoc --go_out=. --go_opt=paths=source_relative helloworld.proto
+```
+
 ## 特性
 - devops全流程支持
 - 依托istio平台的微服务治理
