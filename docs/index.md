@@ -1,5 +1,5 @@
 ---
-title: A static site based on dumi
+title: mss-boot文档
 hero:
   title: mss-boot
   description: mss-boot document
