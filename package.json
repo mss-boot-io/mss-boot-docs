@@ -1,0 +1,33 @@
+{
+  "name": "mss-boot",
+  "version": "0.0.1",
+  "description": "mss-boot document",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "dumi dev",
+    "build": "dumi build",
+    "prepare": "husky install && dumi setup"
+  },
+  "authors": [
+    "lwnmengjing@gmail.com"
+  ],
+  "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{md,json}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "dumi": "^2.2.14",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
+    "prettier": "^3.0.3"
+  }
+}
