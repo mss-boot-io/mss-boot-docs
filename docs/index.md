@@ -2,12 +2,10 @@
 title: mss-boot文档
 hero:
   title: mss-boot
-  description: mss-boot document
+  description: mss-boot文档
   actions:
-    - text: http服务
-      link: /http
-    - text: grpc服务
-      link: /grpc
+    - text: 快速开始
+      link: /guide
 features:
   - title: 微服务
     emoji: 💎

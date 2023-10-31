@@ -52,6 +52,18 @@ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 - grpc服务基于grpc框架
 - 支持Swagger文档(基于swaggo)
 
+## 快速开发
+### 1. 创建新项目
+- http项目使用模板[`service-http`](https://github.com/mss-boot-io/service-http)，直接use this template
+- grpc项目使用模板[`service-grpc`](https://github.com/mss-boot-io/service-grpc)，直接use this template
+
+### 2. 本地开发
+- 根据自己的需求，修改项目对应名称
+- 根据自己的需求，修改项目对应的proto文件
+- 根据自己的需求，修改项目对应的config文件
+- 运行`make migrate`，生成数据库表
+- 运行`make run`，启动项目
+
 ## 体验环境
 1. [alpha](http://alpha.mssboot.io): 提交pr后经审核后自动部署
 2. [beta](http://beta.mssboot.io): 代码合并到main分支后自动部署
