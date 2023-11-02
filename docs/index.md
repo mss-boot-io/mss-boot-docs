@@ -6,6 +6,8 @@ hero:
   actions:
     - text: 快速开始
       link: /guide
+    - text: GitHub
+      link: https://github.com/mss-boot-io/mss-boot
 features:
   - title: 微服务
     emoji: 💎
