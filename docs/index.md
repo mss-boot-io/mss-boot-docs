@@ -2,7 +2,7 @@
 title: mss-boot文档
 hero:
   title: mss-boot
-  description: 快速开发http/grpc服务的框架，帮助您快速搭建微服务系统
+  description: 快速开发http/grpc服务的框架，帮助您快速搭建单体服务或微服务系统
   actions:
     - text: 快速开始
       link: /guide
@@ -11,7 +11,10 @@ hero:
 features:
   - title: 微服务
     emoji: 💎
-    description: 依托istio平台的微服务治理,提供了微服务的基础开发框架,不依赖于任何中间件/sdk
+    description: 依托istio平台的微服务治理,提供了微服务的基础开发框架,不依赖于任何中间件或sdk
+  - title: 虚拟模型
+    emoji: 📦
+    description: 支持虚拟模型, 可以通过yaml/json/数据库等数据源配置模型，在运行中动态生成模型以及对应的api接口
   - title: http服务
     emoji: 🌈
     description: http服务基于gin框架, 提供了http服务的基础开发框架, 支持swagger文档, 支持自定义response结构, 内置prometheus监控、健康检查、pprof性能分析等

@@ -1,8 +1,8 @@
 ---
+title: http服务
 nav:
   order: 2
-  title: "http服务"
-date: 2023-10-31T15:40:00+08:00
+  title: "coding"
 description: http服务文档
 keywords: [http]
 ---
@@ -64,5 +64,3 @@ keywords: [http]
 4. 运行`make generate`，生成swagger文档
 5. 运行`make migrate`，生成数据库表
 6. 运行`make run`，启动项目
-
-## 

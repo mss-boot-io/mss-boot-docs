@@ -1,11 +1,13 @@
 ---
+title: grpc服务
 nav:
-  order: 3
-  title: "grpc服务"
+  order: 2
+  title: "coding"
 date: 2023-10-31T15:40:00+08:00
 description: grpc服务文档
 keywords: [grpc]
 ---
+
 
 ## 目录结构
 ```shell
@@ -37,3 +39,11 @@ keywords: [grpc]
 ├── main.go
 └── README.md
 ```
+
+## 快速开始
+1. 根据指南获取[service-grpc](https://github.com/mss-boot-io/service-grpc)代码
+2. 根据自己的需求，修改项目对应名称
+3. 根据自己的需求，修改项目对应的proto文件
+4. 创建config/application-local.yml修改自己的配置
+5. 运行`make migrate`，生成数据库表
+6. 运行`make run`，启动项目
