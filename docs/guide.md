@@ -1,7 +1,8 @@
 ---
 title: "指南"
 date: 2021-12-30T15:40:00+08:00
-draft: false
+description: 文档指南
+keywords: [quickstart]
 ---
 ## 介绍
 [mss-boot](https://github.com/mss-boot-io/mss-boot)是一个企业级微服务框架，基于（gin, grpc, Ant Design）实现。
