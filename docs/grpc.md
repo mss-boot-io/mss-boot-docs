@@ -1,5 +1,7 @@
 ---
-title: "grpc服务"
+nav:
+  order: 3
+  title: "grpc服务"
 date: 2023-10-31T15:40:00+08:00
 description: grpc服务文档
 keywords: [grpc]

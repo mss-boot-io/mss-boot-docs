@@ -1,5 +1,7 @@
 ---
-title: "http服务"
+nav:
+  order: 2
+  title: "http服务"
 date: 2023-10-31T15:40:00+08:00
 description: http服务文档
 keywords: [http]
@@ -54,3 +56,13 @@ keywords: [http]
 ├── main.go
 └── README.md
 ```
+
+## 快速开始
+1. 根据指南获取[service-http](https://github.com/mss-boot-io/service-http)代码
+2. 根据自己的需求，修改项目对应名称
+3. 创建config/application-local.yml修改自己的配置
+4. 运行`make generate`，生成swagger文档
+5. 运行`make migrate`，生成数据库表
+6. 运行`make run`，启动项目
+
+## 
