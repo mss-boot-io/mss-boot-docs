@@ -65,6 +65,6 @@ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 ## 开发自己服务
 ### http服务
-  请参考 [service-http](/http)
+  请参考 [service-http](/coding/http)
 ### grpc服务
-  请参考 [service-grpc](/grpc)
+  请参考 [service-grpc](/coding/grpc)
