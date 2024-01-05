@@ -5,7 +5,7 @@ export default defineConfig({
     name: 'mss-boot',
     rtl: true,
     logo: 'favicon.ico',
-    footer: `Open-source MIT Licensed | Copyright © 2023-present
+    footer: `Open-source MIT Licensed | Copyright © 2024-present
     <br />
     Powered by <a target="_blank" href="https://github.com/mss-boot-io">mss-boot-io</av>`,
     socialLinks: {
