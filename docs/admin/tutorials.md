@@ -52,3 +52,80 @@ oauth2:
 export CLIENTID=xxxx
 export CLIENTSECRET=xxxx
 ```
+
+### 缓存配置
+:::info
+利用缓存模块(memory/redis)可以提高系统性能，同时系统的应用配置模块也支持缓存配置，可以通过缓存配置来提高系统性能，自己在开发时，可以合理利用缓存来提高系统性能。
+:::
+> `mss-boot-admin`的缓存配置支持`redis`和`memory`两种缓存方式，`memory`为内存缓存一般用于本地开发，`redis`为redis缓存，一般用于生产环境，如下所示：
+> 
+#### 将redis密码作为环境变量传入
+```shell
+export REDIS_PASSWORD=xxxx
+```
+#### 配置memory缓存
+```yaml
+cache:
+  memory: ''
+```
+#### 配置redis缓存
+```yaml
+cache:
+  redis:
+    addr: 'localhost:6379'
+    password: {{ .Env.REDIS_PASSWORD }}
+    db: 9
+```
+
+### 队列配置
+:::info
+利用队列模块(memory/kafka/redis/nsq)可以将一些耗时的任务放入队列中，然后异步执行，这样可以提高系统性能，同时系统的应用配置模块也支持队列配置，可以通过队列配置来提高系统性能和可靠性，自己在开发时，可以合理利用队列。
+:::
+> `mss-boot-admin`的队列配置支持`memory`、`kafka`、`nsq`和`redis`四种队列方式，`memory`为内存队列一般用于本地开发，`kafka`为kafka队列，一般用于生产环境，`nsq`为nsq队列，一般用于生产环境且对消息没有顺序要求的场景，`redis`为redis队列，一般用于负载极小的场景。
+> 
+:::warning
+`kafka`适用于对消息有顺序要求的场景，`nsq`适用于对消息没有顺序要求的场景，`redis`适用于负载极小的场景，请根据自己的业务场景选择合适的队列。
+:::
+#### 配置memory队列
+```yaml
+queue:
+  memory:
+    poolNum: 10 # 队列池大小
+```
+#### 配置kafka队列
+```yaml
+queue:
+  kafka:
+    brokers:
+      - 'localhost:9092'
+    version: '3.6.0' # kafka版本(默认1.0.0)
+```
+#### 配置nsq队列
+```yaml
+queue:
+  nsq:
+    addresses:
+      - 'localhost:4150'
+    lookupdAddr: 'localhost:4161' # nsqlookupd地址, 用于监听和topic管理nsqd节点, 供消费者使用
+    adminAddr: 'localhost:4171'  # nsqadmin地址, 用于获取所有节点信息供生产者使用
+```
+### 分布式锁配置
+:::info
+利用分布式锁可以解决分布式环境下的并发问题，同时系统的应用配置模块也支持分布式锁配置，可以通过分布式锁配置来解决分布式环境下的并发问题，自己在开发时，可以合理利用分布式锁。
+:::
+> `mss-boot-admin`的分布式锁配置只支持`redis`，一般用于生产环境。
+> 
+#### 配置redis分布式锁
+```yaml
+### 如果cache和queue都没有使用redis，需要完整配置redis
+locker:
+  redis:
+    addr: 'localhost:6379'
+    password: {{ .Env.REDIS_PASSWORD }}
+    db: 9
+```
+```yaml
+### 如果cache或queue使用redis，只需要配置redis这个参数即可
+locker:
+  redis: {}
+```
