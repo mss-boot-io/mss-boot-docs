@@ -51,6 +51,12 @@ features:
 </table>
 
 
-### 贡献者
+### 💎 贡献者
 <span style="margin: 0 5px;" ><a href="https://github.com/lwnmengjing" ><img src="https://images.weserv.nl/?url=avatars.githubusercontent.com/u/12806223?s=64&v=4&w=60&fit=cover&mask=circle&maxage=7d" /></a></span> 
 <span style="margin: 0 5px;" ><a href="https://github.com/wangde7" ><img src="https://images.weserv.nl/?url=avatars.githubusercontent.com/u/56955959?s=64&v=4&w=60&fit=cover&mask=circle&maxage=7d" /></a></span>
+<span style="margin: 0 5px;" ><a href="https://github.com/wxip" ><img src="https://images.weserv.nl/?url=avatars.githubusercontent.com/u/25923931?s=64&v=4&w=60&fit=cover&mask=circle&maxage=7d" /></a></span>
+
+### 🤟 打赏
+如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 🍹
+
+<img class="no-margin" src="https://mss-boot-io.github.io/.github/images/sponsor-us.jpg"  height="200px"  alt="Sponsor Us">
