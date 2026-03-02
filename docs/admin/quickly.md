@@ -7,21 +7,22 @@ nav:
 description: 快速启动mss-boot-admin
 keywords: [admin quickly start]
 ---
-  `mss-boot-admin`是一个前后端分离的项目，所以需要分别下载
-  [前端项目mss-boot-admin-antd](https://github.com/mss-boot-io/mss-boot-admin-antd)和
-  [后端项目mss-boot-admin](https://github.com/mss-boot-io/mss-boot-admin)。
+
+`mss-boot-admin` 是前后端分离项目，开发时需要同时启动后端 `admin` 与前端 `antd`。
+
+## 环境要求
 
 :::warning
 go version >= 1.21
 
 node version >= 18.16.0
 
-mysql version >= 8.0
+pnpm version >= 8
 
 port 8080(mss-boot-admin), 8000(mss-boot-admin-antd)
 :::
 
-### 1. 下载项目
+## 1. 下载项目
 
 ```shell
 # 下载后端项目
@@ -30,38 +31,63 @@ git clone https://github.com/mss-boot-io/mss-boot-admin.git
 git clone https://github.com/mss-boot-io/mss-boot-admin-antd.git
 ```
 
-### 2. 迁移数据库
+## 2. 初始化后端
+
+后端默认可使用本地 SQLite（`config/application.yml` 中默认 `database.driver: sqlite`），可先无需额外数据库服务。
 
 ```shell
 # 进入后端项目
 cd mss-boot-admin
-# 配置数据库连接信息(可根据实际情况修改)
-export DB_DSN="root:123456@tcp(127.0.0.1:3306)/mss-boot-admin-local?charset=utf8mb4&parseTime=True&loc=Local"
 # 迁移数据库
-go run main.go migrate
+go run . migrate
 ```
 
-### 3. 生成 API 接口信息
+> 如需切换 MySQL/PostgreSQL，请按实际情况设置 `DB_DSN`，并参考仓库 `config` 与 `compose` 目录。
 
-```shell
-# 生成api接口信息
-go run main.go server -a
-```
-
-### 4. 启动后端服务
+## 3. 启动后端服务
 
 ```shell
 # 启动后端服务
-go run main.go server
+go run . server
 ```
 
-### 5. 启动前端服务
+## 4. 启动前端服务
 
 ```shell
 # 进入前端项目
-cd mss-boot-admin-antd
+cd ../mss-boot-admin-antd
 # 安装依赖
-npm install
+pnpm install
 # 启动前端服务
-npm run start
+pnpm dev
 ```
+
+## 5. 验证启动状态
+
+```shell
+# 前端
+curl -I http://127.0.0.1:8000
+# 后端
+curl -I http://127.0.0.1:8080/healthz
+```
+
+## 6. 常用开发命令
+
+```shell
+# 后端（admin）
+go run . migrate
+go run . server
+
+# 前端（antd）
+pnpm dev
+pnpm -s tsc --noEmit
+```
+
+## 7. 一键启动（VS Code 任务）
+
+如果你在 `mss-boot-admin` 仓库中已配置任务，可直接使用：
+
+- `start-project`：并行启动后端与前端
+- `stop-project`：按端口停止后端与前端
+
+可通过 VS Code 命令 `Tasks: Run Task` 选择对应任务。

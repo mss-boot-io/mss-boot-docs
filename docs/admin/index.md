@@ -48,6 +48,13 @@ keywords: [admin mss-boot-admin]
 - 国际化管理: 管理国际化资源。
 - 微服务代码生成: 根据模板生成微服务代码。
 
+## 🧭 推荐阅读
+
+- [快速开始](/admin/quickly)
+- [本地联调](/admin/local-debug)
+- [国际化排障](/admin/i18n-troubleshooting)
+- [配置操作](/admin/tutorials)
+
 ##  贡献者
 
 <span style="margin: 0 5px;" ><a href="https://github.com/lwnmengjing" ><img src="https://images.weserv.nl/?url=avatars.githubusercontent.com/u/12806223?s=64&v=4&w=60&fit=cover&mask=circle&maxage=7d" /></a></span> <span style="margin: 0 5px;" ><a href="https://github.com/wangde7" ><img src="https://images.weserv.nl/?url=avatars.githubusercontent.com/u/56955959?s=64&v=4&w=60&fit=cover&mask=circle&maxage=7d" /></a></span>
