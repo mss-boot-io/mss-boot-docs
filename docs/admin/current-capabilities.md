@@ -84,21 +84,27 @@ keywords: [admin capabilities features overview]
 
 这使它更适合做面向多语言场景的管理系统，而不是仅限单语言后台。
 
-## 5. 开发辅助能力（当前仍存在，但已不再是主线）
+## 5. 历史能力（L3 弱化，非主线）
 
-这组能力在当前仓库中仍然存在，但从产品方向上看，后续不再建议把它作为核心主线继续强化。
+> 详见 [历史能力降级说明](/admin/legacy-capability-deprecation)
 
-当前可见能力包括：
+这组能力在当前仓库中仍然存在，但已不再作为产品主线继续强化，属于**历史存量能力**。
 
-- 虚拟模型管理
-- 模型字段管理
-- 动态生成数据相关能力
-- 模型文档接口
-- 模板管理与代码生成能力
-- 文件上传接口
-- WebSocket 事件接口
+| 能力 | 分级 | 说明 |
+|------|------|------|
+| 动态模型/虚拟模型 | L3 弱化 | 运行时定义模型，适合原型开发，不适合生产环境 |
+| 代码生成/模板 | L3 弱化 | 通用模板引擎，无内置模板，需用户自行准备 |
 
-从仓库实现看，系统并不只关注“后台页面管理”，也具备一定的平台扩展与开发辅助基础。不过在当前阶段，这些能力更适合被视为历史存量能力，而不是后续主叙事。
+**限制说明：**
+
+- 文档和测试覆盖有限
+- 不作为主线推荐
+- 生产环境建议使用标准 Controller 模式
+
+**仍属于主线的能力：**
+
+- 文件上传接口 → 见 [集成与扩展护栏](/admin/extension-guardrails)
+- WebSocket 事件接口 → 见 [集成与扩展护栏](/admin/extension-guardrails)
 
 ## 当前内置功能可以怎样理解
 
@@ -128,14 +134,16 @@ keywords: [admin capabilities features overview]
 
 - [快速开始](/admin/quickly)
 - [产品方向调整](/admin/product-direction)
+- [权限与组织治理说明](/admin/governance-guide)
+- [运营能力说明](/admin/operations-guide)
+- [Token 与 OAuth2 联调说明](/admin/token-oauth2-guide)
 - [AI 注解协同规范](/admin/ai-annotation-spec)
 - [配置操作](/admin/tutorials)
 - [本地联调](/admin/local-debug)
 - [Docker 部署](/admin/docker)
 
-后续如果要继续完善文档，建议优先细化以下专题：
+## 后续建议细化的专题
 
-- 权限与组织管理
-- 通知、任务与系统配置
-- Token、OAuth2 与联调使用说明
-- 产品方向调整与 AI 注解协同规范
+- 权限与组织管理 → 见 [权限与组织治理说明](/admin/governance-guide)
+- 通知、任务与系统配置 → 见 [运营能力说明](/admin/operations-guide)
+- Token、OAuth2 与联调使用说明 → 见 [Token 与 OAuth2 联调说明](/admin/token-oauth2-guide)
