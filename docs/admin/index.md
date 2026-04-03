@@ -80,6 +80,7 @@ keywords: [admin mss-boot-admin]
 - [AI 注解产物模板](/admin/ai-annotation-templates)
 - [四期路线图](/admin/phase-4-roadmap)
 - [五期路线图](/admin/phase-5-roadmap)
+- [HotGo 对比分析](/admin/hotgo-comparison)
 - [生产部署标准化](/admin/production-standardization)
 - [发布验证清单](/admin/release-verification-checklist)
 - [性能与可观测性指南](/admin/observability-guide)

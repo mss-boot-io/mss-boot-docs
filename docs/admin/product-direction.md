@@ -131,6 +131,8 @@ keywords: [admin product direction roadmap ai annotation]
 
 - [介绍](/admin)
 - [当前功能总览](/admin/current-capabilities)
+- [HotGo 对比分析](/admin/hotgo-comparison)
 - [AI 注解协同规范](/admin/ai-annotation-spec)
 - [四期路线图](/admin/phase-4-roadmap)
+- [五期路线图](/admin/phase-5-roadmap)
 - [快速开始](/admin/quickly)
