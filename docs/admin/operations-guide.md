@@ -4,8 +4,8 @@ order: 19
 nav:
   order: 1
   title: admin
-description: mss-boot-admin 系统配置、通知公告、定时任务、监控统计等运营能力说明
-keywords: [admin operations config notice task monitor statistics]
+description: mss-boot-admin 系统配置、通知公告、定时任务、监控统计、日志管理、告警通知等运营能力说明
+keywords: [admin operations config notice task monitor statistics log alert]
 ---
 
 ## 概述
@@ -17,6 +17,8 @@ keywords: [admin operations config notice task monitor statistics]
 - 定时任务与作业调度
 - 系统监控信息
 - 统计查询能力
+- 日志管理
+- 告警通知
 
 这些能力使 `mss-boot-admin` 不仅是权限管理平台，更是具备日常运营维护能力的后台系统。
 
@@ -351,27 +353,202 @@ type StatisticsObject interface {
 | 能力维度 | mss-boot-admin | HotGo |
 |----------|----------------|-------|
 | 系统配置 | 数据库存储多格式配置 | 配置中心 + 系统参数 |
-| 通知系统 | Notice 表 + 类型区分 | WebSocket 实时推送 |
+| 通知系统 | Notice 表 + WebSocket 实时推送 | WebSocket 实时推送 |
 | 定时任务 | Default/K8s/Func 三种 Provider | CronJob + 插件任务 |
-| 系统监控 | CPU/Memory/Disk 实时采集 | 服务监控 + 日志系统 |
+| 系统监控 | CPU/Memory/Disk 实时采集 + 图表展示 | 服务监控 + 日志系统 |
 | 统计查询 | Statistics 表 + 接口实现 | 统计报表 + 可视化 |
+| 日志管理 | 登录日志 + 审计日志 + 运行时日志 | 服务日志系统 |
+| 告警通知 | 规则配置 + 多渠道推送 | 告警系统 |
 
-**当前差距**
+## 6. 日志管理
 
-- HotGo 的 WebSocket 实时通知更即时
-- HotGo 有更完善的服务日志系统
-- HotGo 监控包含堆栈、网络等更多维度
+### 登录日志
 
-**建议补强方向**
+**数据模型** (`models/login_log.go`)
 
-1. 集成 WebSocket 实时通知推送
-2. 增加服务日志查询与管理界面
-3. 扩展监控维度（网络、堆栈、连接数）
-4. 统计数据可视化图表支持
+```
+LoginLog
+├── ID          → 日志ID
+├── UserID      → 用户ID
+├── Username    → 用户名
+├── IP          → 登录IP
+├── UserAgent   → 浏览器信息
+├── Status      → 登录状态 (success/failed)
+├── Message     → 登录消息
+├── LoginAt     → 登录时间
+```
+
+**存储位置**: `mss_boot_login_logs` 表
+
+**API 入口**
+
+| 路径 | 方法 | 功能 |
+|------|------|------|
+| `/admin/api/audit-logs/login` | GET | 登录日志列表 |
+
+**记录时机**
+
+在 `middleware/auth.go` 的 `Authenticator` 函数中：
+- 登录成功：记录用户ID、用户名、IP、状态为 success
+- 登录失败：记录用户名、IP、状态为 failed、错误消息
+
+### 审计日志
+
+**数据模型** (`models/audit_log.go`)
+
+```
+AuditLog
+├── ID          → 日志ID
+├── UserID      → 操作用户ID
+├── Username    → 操作用户名
+├── Method      → HTTP方法
+├── Path        → 请求路径
+├── IP          → 请求IP
+├── UserAgent   → 浏览器信息
+├── RequestBody → 请求体
+├── Status      → 响应状态码
+├── CreatedAt   → 操作时间
+```
+
+**存储位置**: `mss_boot_audit_logs` 表
+
+**API 入口**
+
+| 路径 | 方法 | 功能 |
+|------|------|------|
+| `/admin/api/audit-logs/operation` | GET | 审计日志列表 |
+
+**记录范围**
+
+通过 `middleware/audit.go` 中间件自动记录：
+- POST/PUT/DELETE 请求
+- 排除登录/登出/认证相关接口
+- 记录请求体、响应状态、操作时间
+
+### 运行时日志
+
+**配置方式** (`config/application.yml`)
+
+```yaml
+logger:
+  path: logs           # 日志文件目录
+  stdout: file         # 输出到文件
+  level: info          # 日志级别
+  json: false          # 非JSON格式
+  addSource: true      # 添加源码位置
+```
+
+**日志清理任务**
+
+系统内置 `log_cleaner` 任务函数，支持：
+- 清理数据库中的登录日志和审计日志
+- 清理本地日志文件
+
+**配置清理任务**
+
+```bash
+# 在数据库中创建任务
+INSERT INTO mss_boot_tasks (id, name, provider, method, spec, args, status)
+VALUES ('log-cleaner-001', '日志清理任务', 'func', 'log_cleaner', '0 0 3 * * *', '["30","7","logs"]', 'enabled');
+```
+
+参数说明：
+- 第1个参数：数据库日志保留天数（默认30天）
+- 第2个参数：本地日志文件保留天数（默认7天）
+- 第3个参数：日志目录路径（默认 logs）
+
+## 7. 告警通知
+
+### 告警规则
+
+**数据模型** (`models/alert.go`)
+
+```
+AlertRule
+├── ID          → 规则ID
+├── Name        → 规则名称
+├── Metric      → 监控指标 (cpu/memory/disk)
+├── Operator    → 比较运算符 (>/</>=/<=)
+├── Threshold   → 阈值
+├── Duration    → 持续时间(秒)
+├── Channels    → 通知渠道(JSON数组)
+├── Message     → 告警消息模板
+├── Status      → 状态 (enabled/disabled)
+```
+
+**存储位置**: `mss_boot_alert_rules` 表
+
+**监控指标**
+
+| 指标 | 说明 |
+|------|------|
+| `cpu` | CPU使用率 |
+| `memory` | 内存使用率 |
+| `disk` | 磁盘使用率 |
+
+### 告警历史
+
+**数据模型** (`models/alert.go`)
+
+```
+AlertHistory
+├── ID          → 记录ID
+├── RuleID      → 关联规则ID
+├── RuleName    → 规则名称
+├── Metric      → 监控指标
+├── Value       → 触发值
+├── Threshold   → 阈值
+├── Status      → 状态 (firing/resolved)
+├── TriggeredAt → 触发时间
+├── ResolvedAt  → 恢复时间
+```
+
+**存储位置**: `mss_boot_alert_histories` 表
+
+### 通知渠道配置
+
+**配置项** (`config/application.yml`)
+
+```yaml
+notification:
+  email:
+    enabled: true
+    host: "smtp.example.com"
+    port: 587
+    username: "alert@example.com"
+    password: "your-password"
+    from: "alert@example.com"
+  dingtalk:
+    enabled: true
+    webhook: "https://oapi.dingtalk.com/robot/send?access_token=xxx"
+    secret: "your-secret"
+  wechat:
+    enabled: true
+    webhook: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxx"
+```
+
+### 告警检查机制
+
+`service/alert_checker.go` 实现：
+- 定时检查（可配置检查间隔）
+- 读取所有启用的告警规则
+- 获取对应指标的当前值
+- 评估是否触发告警
+- 通过配置的渠道发送通知
+- 记录告警历史
+
+### 通知渠道说明
+
+| 渠道 | 配置要求 | 说明 |
+|------|----------|------|
+| WebSocket | 无需额外配置 | 系统内置，实时推送给在线用户 |
+| Email | SMTP服务器配置 | 支持TLS/SSL |
+| DingTalk | Webhook + Secret | 支持签名验证 |
+| WeChat | Webhook | 企业微信群机器人 |
 
 ## 推荐阅读
 
 - [产品方向调整](/admin/product-direction)
 - [权限与组织治理说明](/admin/governance-guide)
 - [当前功能总览](/admin/current-capabilities)
-- [三期路线图](/admin/phase-3-roadmap)
+- [四期路线图](/admin/phase-4-roadmap)

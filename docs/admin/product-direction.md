@@ -130,5 +130,5 @@ keywords: [admin product direction roadmap ai annotation]
 - [介绍](/admin)
 - [当前功能总览](/admin/current-capabilities)
 - [AI 注解协同规范](/admin/ai-annotation-spec)
-- [三期路线图](/admin/phase-3-roadmap)
+- [四期路线图](/admin/phase-4-roadmap)
 - [快速开始](/admin/quickly)

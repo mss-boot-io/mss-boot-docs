@@ -70,7 +70,12 @@ keywords: [admin capabilities features overview]
 - 通知公告与未读/已读处理
 - 定时任务管理及执行日志相关能力
 - 监控信息接口（如 CPU、内存、磁盘等）
+- 监控可视化图表（CPU/内存趋势图）
 - 统计查询接口
+- 登录日志记录
+- 审计日志记录
+- 运行时日志配置与清理
+- 告警规则配置与多渠道通知
 
 这一部分说明 `mss-boot-admin` 不只是“做 CRUD 的后台”，它也在向可运营、可维护的平台能力延伸。
 
@@ -112,7 +117,7 @@ keywords: [admin capabilities features overview]
 
 - **权限与身份**：登录、角色、菜单、API、Token、OAuth2
 - **组织与用户**：用户、部门、岗位
-- **系统与运营**：系统配置、通知公告、任务管理、监控、统计
+- **系统与运营**：系统配置、通知公告、任务管理、监控、统计、日志、告警
 - **内容与国际化**：选项管理、国际化资源
 - **平台与扩展**：上传、事件、以及部分历史开发辅助能力
 
@@ -147,3 +152,4 @@ keywords: [admin capabilities features overview]
 - 权限与组织管理 → 见 [权限与组织治理说明](/admin/governance-guide)
 - 通知、任务与系统配置 → 见 [运营能力说明](/admin/operations-guide)
 - Token、OAuth2 与联调使用说明 → 见 [Token 与 OAuth2 联调说明](/admin/token-oauth2-guide)
+- 日志管理与告警配置 → 见 [运营能力说明](/admin/operations-guide)

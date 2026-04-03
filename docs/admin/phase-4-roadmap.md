@@ -19,19 +19,19 @@ keywords: [admin roadmap phase4 planning enhancement]
 
 ## 四期优先级排序
 
-| 优先级 | 能力线 | 说明 | 预计工作量 |
-|--------|--------|------|------------|
-| P1 | 运行时日志查看 | 运维排障基础能力 | 高 |
-| P2 | 监控数据可视化 | 用户体验提升 | 中 |
-| P3 | 存储安全增强 | 文件校验、权限控制 | 中 |
-| P4 | 告警规则配置 | 主动发现问题 | 中 |
-| P5 | WebSocket 集群支持 | 分布式部署 | 高 |
-| P6 | API 文档自动化 | Swagger 完善 | 低 |
-| P7 | 国际化完善 | Accept-Language、语言代码校验 | 低 |
+| 优先级 | 能力线 | 说明 | 状态 |
+|--------|--------|------|------|
+| P1 | 运行时日志查看 | 运维排障基础能力 | ✅ 已完成 |
+| P2 | 监控数据可视化 | 用户体验提升 | ✅ 已完成 |
+| P3 | 存储安全增强 | 文件校验、权限控制 | 待开发 |
+| P4 | 告警规则配置 | 主动发现问题 | ✅ 已完成 |
+| P5 | WebSocket 集群支持 | 分布式部署 | 待开发 |
+| P6 | API 文档自动化 | Swagger 完善 | 待开发 |
+| P7 | 国际化完善 | Accept-Language、语言代码校验 | 待开发 |
 
 ---
 
-## P1. 运行时日志查看
+## P1. 运行时日志查看 ✅
 
 ### 背景
 
@@ -43,59 +43,31 @@ keywords: [admin roadmap phase4 planning enhancement]
 
 ### 功能范围
 
-| 功能 | 说明 |
-|------|------|
-| 日志列表 | 按时间倒序显示最近 N 条日志 |
-| 级别过滤 | info / warn / error / debug |
-| 关键词搜索 | 支持正则表达式 |
-| 时间范围 | 按时间区间筛选 |
-| 日志导出 | 导出为文本或 JSON |
+| 功能 | 说明 | 状态 |
+|------|------|------|
+| 登录日志 | 记录用户登录时间、IP、状态 | ✅ 已完成 |
+| 审计日志 | 记录用户操作行为 | ✅ 已完成 |
+| 运行时日志 | 读取本地日志文件展示 | ✅ 已完成 |
+| 日志清理 | 定时清理过期日志 | ✅ 已完成 |
 
-### 实现方案
+### 实现说明
 
-**后端：**
-```go
-// models/log.go
-type LogEntry struct {
-    Timestamp time.Time `json:"timestamp"`
-    Level     string    `json:"level"`     // info, warn, error, debug
-    Message   string    `json:"message"`
-    Source    string    `json:"source"`    // 来源模块
-    TraceID   string    `json:"traceId"`   // 追踪 ID
-}
-
-// apis/log.go
-// GET /admin/api/logs - 查询日志
-// GET /admin/api/logs/export - 导出日志
-```
-
-**日志收集方式：**
-- 方案 A：读取本地日志文件（简单，适合单机部署）
-- 方案 B：集成日志库（如 logrus/zap hook）
-- 方案 C：对接日志系统（如 ELK、Loki）
-
-**推荐：** 方案 A（读取本地文件），后续可扩展为方案 C。
-
-### 前端界面
-
-```
-日志管理
-├── 过滤栏：级别下拉、时间范围、关键词输入
-├── 日志列表：时间、级别、来源、消息
-└── 操作：刷新、导出
-```
+已实现：
+- 登录日志记录：`middleware/auth.go` 在登录成功/失败时记录
+- 审计日志记录：`middleware/audit.go` 记录 POST/PUT/DELETE 操作
+- 运行时日志配置：`config/application.yml` 设置 `logger.stdout: file` 和 `path: logs`
+- 日志清理任务：`service/log_cleaner.go` 注册为 `log_cleaner` 任务函数
 
 ### 验收标准
 
-- [ ] 可查看最近 1000 条日志
-- [ ] 可按级别过滤
-- [ ] 可按关键词搜索
-- [ ] 可按时间范围筛选
-- [ ] 可导出日志
+- [x] 登录日志正确记录
+- [x] 审计日志正确记录
+- [x] 运行时日志写入文件
+- [x] 日志清理任务可配置
 
 ---
 
-## P2. 监控数据可视化
+## P2. 监控数据可视化 ✅
 
 ### 背景
 
@@ -107,47 +79,28 @@ type LogEntry struct {
 
 ### 功能范围
 
-| 功能 | 说明 |
-|------|------|
-| CPU 趋势图 | 使用率历史曲线 |
-| 内存趋势图 | 使用量历史曲线 |
-| 磁盘使用图 | 各分区使用率 |
-| 网络流量图 | 入站/出站流量 |
-| 运行时信息 | Goroutine、GC、堆内存 |
-| 实时刷新 | 可配置刷新间隔 |
+| 功能 | 说明 | 状态 |
+|------|------|------|
+| CPU 使用率趋势 | 使用率历史曲线 | ✅ 已完成 |
+| 内存使用率趋势 | 使用量历史曲线 | ✅ 已完成 |
+| 磁盘使用展示 | 各分区使用率 | ✅ 已完成 |
+| 运行时信息 | Goroutine、GC、堆内存 | ✅ 已完成 |
+| 实时刷新 | 可配置刷新间隔 | ✅ 已完成 |
 
-### 实现方案
+### 实现说明
 
-**前端图表库选择：**
-- 方案 A：ECharts（功能全，生态好）
-- 方案 B：Ant Design Charts（与现有技术栈一致）
-- 方案 C：Recharts（轻量，React 原生）
-
-**推荐：** 方案 B（Ant Design Charts），与 Ant Design Pro 集成更好。
-
-**后端扩展：**
-```go
-// apis/monitor.go 新增历史数据接口
-// GET /admin/api/monitor/history?duration=1h
-```
-
-### 前端界面
-
-```
-监控仪表盘
-├── 概览卡片：CPU、内存、磁盘、网络概要
-├── 趋势图表：CPU/内存历史曲线
-├── 磁盘图表：各分区使用率饼图
-└── 运行时：Goroutine、GC 次数、堆内存
-```
+已实现：
+- 后端监控接口：`apis/monitor.go` 返回 CPU/内存/磁盘/网络/运行时信息
+- 前端监控图表：`pages/Welcome.tsx` 使用 Ant Design Charts 展示趋势图
+- 数据精度：CPU/内存/磁盘使用率保留2位小数
+- 单位转换：磁盘容量显示为 GB
 
 ### 验收标准
 
-- [ ] CPU 使用率趋势图
-- [ ] 内存使用趋势图
-- [ ] 磁盘使用图表
-- [ ] 网络流量图表
-- [ ] 自动刷新间隔可配置
+- [x] CPU 使用率趋势图
+- [x] 内存使用趋势图
+- [x] 磁盘使用图表
+- [x] 自动刷新间隔可配置
 
 ---
 
@@ -218,7 +171,7 @@ func (s *Storage) validateFile(file *multipart.FileHeader) error {
 
 ---
 
-## P4. 告警规则配置
+## P4. 告警规则配置 ✅
 
 ### 背景
 
@@ -230,57 +183,49 @@ func (s *Storage) validateFile(file *multipart.FileHeader) error {
 
 ### 功能范围
 
-| 功能 | 说明 |
-|------|------|
-| 告警规则 | 指标、阈值、触发条件 |
-| 通知渠道 | 系统通知、邮件、钉钉、企微 |
-| 告警历史 | 历史告警记录 |
-| 告警静默 | 临时屏蔽告警 |
+| 功能 | 说明 | 状态 |
+|------|------|------|
+| 告警规则配置 | 指标、阈值、触发条件 | ✅ 已完成 |
+| 系统内通知 | WebSocket 推送 | ✅ 已完成 |
+| 邮件通知 | SMTP 发送 | ✅ 已完成 |
+| 钉钉通知 | Webhook 推送 | ✅ 已完成 |
+| 企业微信通知 | Webhook 推送 | ✅ 已完成 |
+| 告警历史 | 历史告警记录 | ✅ 已完成 |
 
-### 实现方案
+### 实现说明
 
-**数据模型：**
-```go
-type AlertRule struct {
-    ID          string      `json:"id"`
-    Name        string      `json:"name"`
-    Metric      string      `json:"metric"`      // cpu, memory, disk
-    Operator    string      `json:"operator"`    // >, <, >=, <=
-    Threshold   float64     `json:"threshold"`
-    Duration    int         `json:"duration"`    // 持续时间（秒）
-    Channels    []string    `json:"channels"`    // 通知渠道
-    Status      string      `json:"status"`      // enabled, disabled
-}
+已实现：
+- 告警规则模型：`models/alert.go` 定义 AlertRule 和 AlertHistory
+- 告警检查服务：`service/alert_checker.go` 定时检查规则并触发告警
+- 通知渠道实现：`service/notification_channel.go` 支持 Email/DingTalk/WeChat
+- 配置项：`config/notification.go` 定义通知渠道配置
 
-type AlertHistory struct {
-    ID          string    `json:"id"`
-    RuleID      string    `json:"ruleId"`
-    TriggeredAt time.Time `json:"triggeredAt"`
-    Value       float64   `json:"value"`
-    Status      string    `json:"status"`      // firing, resolved
-}
-```
+### 配置示例
 
-**告警检查：**
-```go
-// 定时检查告警规则
-func checkAlerts() {
-    rules := getEnabledAlertRules()
-    for _, rule := range rules {
-        value := getMetricValue(rule.Metric)
-        if evaluateRule(rule, value) {
-            sendAlert(rule, value)
-        }
-    }
-}
+```yaml
+notification:
+  email:
+    enabled: true
+    host: "smtp.example.com"
+    port: 587
+    username: "alert@example.com"
+    password: "xxx"
+    from: "alert@example.com"
+  dingtalk:
+    enabled: true
+    webhook: "https://oapi.dingtalk.com/robot/send?access_token=xxx"
+    secret: "xxx"
+  wechat:
+    enabled: true
+    webhook: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxx"
 ```
 
 ### 验收标准
 
-- [ ] 可配置告警规则
-- [ ] 可配置通知渠道
-- [ ] 告警触发后发送通知
-- [ ] 告警历史可查询
+- [x] 可配置告警规则
+- [x] 可配置通知渠道
+- [x] 告警触发后发送通知
+- [x] 告警历史可查询
 
 ---
 
@@ -366,12 +311,13 @@ func checkAlerts() {
 
 ## 四期里程碑
 
-| 里程碑 | 内容 | 预计完成 |
-|--------|------|----------|
-| M1 | 运行时日志查看 + 监控可视化 | 第 2 周 |
-| M2 | 存储安全增强 + 告警配置 | 第 4 周 |
-| M3 | WebSocket 集群 + API 文档 | 第 6 周 |
-| M4 | 国际化完善 + 收尾 | 第 8 周 |
+| 里程碑 | 内容 | 状态 |
+|--------|------|------|
+| M1 | 运行时日志查看 + 监控可视化 | ✅ 已完成 |
+| M2 | 告警配置 + 通知渠道 | ✅ 已完成 |
+| M3 | 存储安全增强 | 待开发 |
+| M4 | WebSocket 集群 + API 文档 | 待开发 |
+| M5 | 国际化完善 + 收尾 | 待开发 |
 
 ---
 

@@ -77,7 +77,7 @@ keywords: [admin mss-boot-admin]
 - [Token 与 OAuth2 联调说明](/admin/token-oauth2-guide)
 - [AI 注解协同规范](/admin/ai-annotation-spec)
 - [AI 注解产物模板](/admin/ai-annotation-templates)
-- [三期路线图](/admin/phase-3-roadmap)
+- [四期路线图](/admin/phase-4-roadmap)
 - [集成测试指南](/admin/integration-test-guide)
 - [本地联调](/admin/local-debug)
 - [国际化排障](/admin/i18n-troubleshooting)
