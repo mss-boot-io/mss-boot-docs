@@ -40,6 +40,10 @@ features:
 - [四期路线图](/admin/phase-4-roadmap)
 - [五期路线图](/admin/phase-5-roadmap)
 - [容器化与生产部署](/admin/docker)
+- [生产部署标准化](/admin/production-standardization)
+- [发布验证清单](/admin/release-verification-checklist)
+- [性能与可观测性指南](/admin/observability-guide)
+- [安全基线指南](/admin/security-baseline)
 - [集成测试指南](/admin/integration-test-guide)
 ### 讨论交流
 加入讨论群

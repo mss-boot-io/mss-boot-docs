@@ -18,7 +18,11 @@
 3. `/admin/phase-4-roadmap` 四期路线图
 4. `/admin/phase-5-roadmap` 五期路线图
 5. `/admin/docker` 容器化与生产部署
-6. `/admin/integration-test-guide` 集成测试指南
+6. `/admin/production-standardization` 生产部署标准化
+7. `/admin/release-verification-checklist` 发布验证清单
+8. `/admin/observability-guide` 性能与可观测性指南
+9. `/admin/security-baseline` 安全基线指南
+10. `/admin/integration-test-guide` 集成测试指南
 
 ## 本地开发
 
