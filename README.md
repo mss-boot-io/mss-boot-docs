@@ -17,12 +17,14 @@
 2. `/admin/current-capabilities` 当前功能总览
 3. `/admin/phase-4-roadmap` 四期路线图
 4. `/admin/phase-5-roadmap` 五期路线图
-5. `/admin/docker` 容器化与生产部署
-6. `/admin/production-standardization` 生产部署标准化
-7. `/admin/release-verification-checklist` 发布验证清单
-8. `/admin/observability-guide` 性能与可观测性指南
-9. `/admin/security-baseline` 安全基线指南
-10. `/admin/integration-test-guide` 集成测试指南
+5. `/admin/product-polish-governance-plan` 产品打磨治理计划
+6. `/admin/docker` 容器化与生产部署
+7. `/admin/production-standardization` 生产部署标准化
+8. `/admin/pre-release-checklist` 发布前检查清单
+9. `/admin/observability-guide` 性能与可观测性指南
+10. `/admin/security-baseline` 安全基线指南
+11. `/admin/integration-test-guide` 集成测试指南
+12. `/admin/configuration-guide` 配置教程
 
 ## 本地开发
 

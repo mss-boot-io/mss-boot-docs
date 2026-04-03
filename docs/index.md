@@ -35,16 +35,26 @@ features:
 
 ### 推荐阅读
 
+#### 指南系列（用户使用指南）
+
+- [框架介绍](/guide) - mss-boot 核心框架介绍
+- [快速开始](/guide/quickly) - 环境准备与项目启动
+- [核心功能](/guide/features) - 系统内置功能模块
+- [服务配置](/guide/config) - 配置文件详细说明
+- [部署指南](/guide/deployment) - 生产环境部署方案
+- [常见问题](/guide/faq) - 使用问题解答
+
+#### Admin 系列（产品文档）
+
 - [admin 介绍](/admin)
 - [当前功能总览](/admin/current-capabilities)
-- [四期路线图](/admin/phase-4-roadmap)
-- [五期路线图](/admin/phase-5-roadmap)
+- [产品打磨治理计划](/admin/product-polish-governance-plan)
 - [容器化与生产部署](/admin/docker)
-- [生产部署标准化](/admin/production-standardization)
-- [发布验证清单](/admin/release-verification-checklist)
+- [发布前检查清单](/admin/pre-release-checklist)
 - [性能与可观测性指南](/admin/observability-guide)
 - [安全基线指南](/admin/security-baseline)
 - [集成测试指南](/admin/integration-test-guide)
+- [配置教程](/admin/configuration-guide)
 ### 讨论交流
 加入讨论群
 `申请消息github名@mss-boot-io,e.g. lwnemngjing@mss-boot-io`
