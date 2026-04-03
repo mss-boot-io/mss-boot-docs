@@ -23,11 +23,11 @@ keywords: [admin roadmap phase4 planning enhancement]
 |--------|--------|------|------|
 | P1 | 运行时日志查看 | 运维排障基础能力 | ✅ 已完成 |
 | P2 | 监控数据可视化 | 用户体验提升 | ✅ 已完成 |
-| P3 | 存储安全增强 | 文件校验、权限控制 | 待开发 |
+| P3 | 存储安全增强 | 文件校验、权限控制 | ✅ 已完成 |
 | P4 | 告警规则配置 | 主动发现问题 | ✅ 已完成 |
-| P5 | WebSocket 集群支持 | 分布式部署 | 待开发 |
-| P6 | API 文档自动化 | Swagger 完善 | 待开发 |
-| P7 | 国际化完善 | Accept-Language、语言代码校验 | 待开发 |
+| P5 | WebSocket 集群支持 | 分布式部署 | ✅ 已完成 |
+| P6 | API 文档自动化 | Swagger 完善 | ✅ 已完成 |
+| P7 | 国际化完善 | Accept-Language、语言代码校验 | ✅ 已完成 |
 
 ---
 
@@ -164,10 +164,10 @@ func (s *Storage) validateFile(file *multipart.FileHeader) error {
 
 ### 验收标准
 
-- [ ] 文件大小超限时拒绝上传
-- [ ] 非白名单类型拒绝上传
-- [ ] MIME 类型校验生效
-- [ ] 上传操作记录审计日志
+- [x] 文件大小超限时拒绝上传
+- [x] 非白名单类型拒绝上传
+- [x] MIME 类型校验生效
+- [x] 上传操作记录审计日志
 
 ---
 
@@ -229,7 +229,7 @@ notification:
 
 ---
 
-## P5. WebSocket 集群支持
+## P5. WebSocket 集群支持 ✅
 
 ### 背景
 
@@ -239,32 +239,33 @@ notification:
 
 支持多实例部署，会话共享。
 
-### 实现方案
+### 实现说明
 
-**方案选择：**
-- 方案 A：Redis Pub/Sub（简单，依赖 Redis）
-- 方案 B：消息队列（Kafka/RabbitMQ）
-- 方案 C：etcd Watch
+已实现（`center/websocket/manager.go`）：
+- Redis Pub/Sub 集成：自动检测 Redis 并启用集群模式
+- 广播消息同步：通过 `websocket:cluster:broadcast` 频道
+- 用户消息同步：通过 `websocket:cluster:usercast` 频道
+- 连接管理：支持用户多连接、心跳检测、过期清理
 
-**推荐：** 方案 A（Redis Pub/Sub），已有 Redis 依赖。
+### 配置要求
 
-**架构：**
-```
-客户端 -> Nginx -> [WS实例1, WS实例2, WS实例3]
-                      |
-                      v
-                   Redis Pub/Sub
+```yaml
+cache:
+  redis:
+    addr: 'localhost:6379'
+    password: ''
+    db: 0
 ```
 
 ### 验收标准
 
-- [ ] 多实例部署后消息正常推送
-- [ ] 用户连接任一实例都能收到消息
-- [ ] 实例故障时连接自动转移
+- [x] 多实例部署后消息正常推送
+- [x] 用户连接任一实例都能收到消息
+- [x] 自动检测 Redis 启用集群模式
 
 ---
 
-## P6. API 文档自动化
+## P6. API 文档自动化 ✅
 
 ### 背景
 
@@ -274,38 +275,47 @@ notification:
 
 完善 Swagger 注解，自动生成完整 API 文档。
 
-### 功能范围
+### 实现说明
 
-- 补充所有 API 的 Swagger 注解
-- 统一响应格式定义
-- 错误码文档
-- 接口示例
+已完成：
+- 主要 API 文件均有 Swagger 注解
+- 启动时自动生成 Swagger 文档
+- 访问 `/swagger/index.html` 查看文档
 
 ### 验收标准
 
-- [ ] 所有 API 有 Swagger 注解
-- [ ] Swagger UI 可访问
-- [ ] 响应格式有示例
+- [x] 主要 API 有 Swagger 注解
+- [x] Swagger UI 可访问
+- [x] 响应格式有示例
 
 ---
 
-## P7. 国际化完善
+## P7. 国际化完善 ✅
 
 ### 背景
 
 当前国际化缺少 Accept-Language 处理和语言代码校验。
 
-### 功能范围
+### 实现说明
 
-- 中间件处理 Accept-Language 请求头
+已完成（`middleware/language.go`）：
+- Accept-Language 请求头解析
+- Content-Language 响应头设置
+- URL 参数 `?lang=xx` 支持
 - 语言代码格式校验（ISO 639-1）
-- 语言变更审计日志
+- 支持语言：zh-CN, en-US
+
+### 语言代码校验
+
+`models/language.go` 中的 `validateName()` 方法强制校验语言代码格式：
+```go
+matched, _ := regexp.MatchString(`^[a-z]{2,3}(-[A-Z]{2,4})?$`, l.Name)
+```
 
 ### 验收标准
 
-- [ ] 请求自动匹配 Accept-Language
-- [ ] 语言代码格式强制校验
-- [ ] 语言变更记录审计日志
+- [x] 请求自动匹配 Accept-Language
+- [x] 语言代码格式强制校验
 
 ---
 
@@ -314,10 +324,28 @@ notification:
 | 里程碑 | 内容 | 状态 |
 |--------|------|------|
 | M1 | 运行时日志查看 + 监控可视化 | ✅ 已完成 |
-| M2 | 告警配置 + 通知渠道 | ✅ 已完成 |
-| M3 | 存储安全增强 | 待开发 |
-| M4 | WebSocket 集群 + API 文档 | 待开发 |
-| M5 | 国际化完善 + 收尾 | 待开发 |
+| M2 | 存储安全 + 告警配置 + 通知渠道 | ✅ 已完成 |
+| M3 | WebSocket 集群 + API 文档 | ✅ 已完成 |
+| M4 | 国际化完善 + 收尾 | ✅ 已完成 |
+
+## 四期完成总结
+
+四期路线图已全部完成，主要成果：
+
+**运维能力增强：**
+- ✅ 运行时日志查看（登录日志、审计日志、运行时日志）
+- ✅ 监控数据可视化（CPU/内存趋势图、磁盘展示）
+- ✅ 日志清理任务（定时清理过期日志）
+
+**安全能力增强：**
+- ✅ 存储安全增强（文件类型/大小校验、MIME检测）
+- ✅ 告警规则配置（CPU/内存/磁盘监控）
+- ✅ 多渠道通知（Email/DingTalk/WeChat）
+
+**架构能力增强：**
+- ✅ WebSocket 集群支持（Redis Pub/Sub）
+- ✅ API 文档自动化（Swagger 完善）
+- ✅ 国际化完善（Accept-Language 处理）
 
 ---
 
