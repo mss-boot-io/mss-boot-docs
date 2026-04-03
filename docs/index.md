@@ -2,7 +2,7 @@
 title: mss-boot文档
 hero:
   title: mss-boot
-  description: 快速开发http/grpc服务的框架，帮助您快速搭建单体服务或微服务系统,  提供开箱即用的后台管理系统mss-boot-admin.
+  description: 快速开发 http/grpc 服务的框架，提供开箱即用的单租户后台管理系统 mss-boot-admin，并覆盖治理、运营、部署、测试与文档协同。
   actions:
     - text: 快速开始
       link: /admin
@@ -13,16 +13,16 @@ hero:
 features:
   - title: 开箱即用
     emoji: 📦
-    description: 提供开箱即用的后台管理系统mss-boot-admin, 帮助您快速搭建单体服务或微服务系统
+    description: 提供开箱即用的后台管理系统 mss-boot-admin，适合单一组织或团队快速搭建治理型与运营型后台系统
   - title: 微服务
     emoji: 💎
     description: 依托istio平台的微服务治理,提供了微服务的基础开发框架,不依赖于任何中间件或sdk
   - title: 服务治理
     emoji: 📈
     description: 原生集成了指标暴露、日志收集、链路追踪、健康检查、pprof性能分析等功能
-  - title: 虚拟模型
-    emoji: 🌍
-    description: 支持虚拟模型, 可以通过yaml/json/数据库等数据源配置模型，在运行中动态生成模型以及对应的api接口
+  - title: Admin 平台能力
+    emoji: 🧭
+    description: 覆盖权限治理、通知任务、日志监控、告警通知、国际化与 API 文档等后台核心能力
   - title: http服务
     emoji: 🚀
     description: http服务基于gin框架, 提供了http服务的基础开发框架, 支持swagger文档, 支持自定义response结构, 内置prometheus监控、健康检查、pprof性能分析等
@@ -32,6 +32,15 @@ features:
 ---
 ### 反馈
 点击 [github](https://github.com/mss-boot-io/mss-boot/issues/new) | [gitee](https://gitee.com/mss-boot-io/mss-boot/issues/new)，直接提issue
+
+### 推荐阅读
+
+- [admin 介绍](/admin)
+- [当前功能总览](/admin/current-capabilities)
+- [四期路线图](/admin/phase-4-roadmap)
+- [五期路线图](/admin/phase-5-roadmap)
+- [容器化与生产部署](/admin/docker)
+- [集成测试指南](/admin/integration-test-guide)
 ### 讨论交流
 加入讨论群
 `申请消息github名@mss-boot-io,e.g. lwnemngjing@mss-boot-io`

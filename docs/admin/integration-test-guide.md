@@ -215,6 +215,8 @@ curl http://localhost:8080/admin/api/audit-logs/operation \
 - [ ] CPU 信息正确显示
 - [ ] 内存信息正确显示
 - [ ] 磁盘信息正确显示
+- [ ] CPU/内存趋势图正常刷新
+- [ ] 百分比与容量单位保留 2 位小数
 - [ ] 网络统计正确显示
 - [ ] 运行时信息正确显示
 
@@ -229,6 +231,31 @@ curl http://localhost:8080/admin/api/audit-logs/operation \
 - [ ] 登录日志正确记录
 - [ ] 操作日志正确记录
 - [ ] 日志列表查询正常
+
+### 存储安全
+
+- [ ] 超过最大文件大小时上传被拒绝
+- [ ] 非白名单 MIME 类型上传被拒绝
+- [ ] 合法图片上传成功并可通过 `/public/` 访问
+
+### 告警与通知
+
+- [ ] 告警规则可创建和保存
+- [ ] 告警历史可查询
+- [ ] WebSocket 告警通知可收到
+- [ ] 已配置的邮件 / 钉钉 / 企业微信通知可验证
+
+### 国际化
+
+- [ ] `Accept-Language: zh-CN` 返回中文语言结果
+- [ ] `Accept-Language: en-US` 返回英文语言结果
+- [ ] 非法语言代码创建时被后端拒绝
+
+### 任务调度
+
+- [ ] `task.enable=true` 时任务调度器启动
+- [ ] 日志清理任务 `checked_at` 持续更新
+- [ ] `log_cleaner` 任务可执行
 
 ## 前后端联调流程
 
@@ -280,6 +307,34 @@ export default {
 | 400 Bad Request | 参数格式错误 | 检查请求体格式 |
 | 500 Internal Error | 后端异常 | 查看后端日志 |
 | CORS 错误 | 跨域配置 | 检查 server.cors 配置 |
+
+## 发布前冒烟检查
+
+建议在每次发布前至少完成以下最小验证：
+
+```bash
+# 1. 后端构建
+cd mss-boot-admin && go build ./...
+
+# 2. 前端类型检查
+cd ../mss-boot-admin-antd && pnpm -s tsc --noEmit
+
+# 3. 后端健康检查
+curl -I http://127.0.0.1:8080/healthz
+
+# 4. 前端可达性检查
+curl -I http://127.0.0.1:8000
+```
+
+发布前最低检查项：
+
+- [ ] 登录成功且首次登录后页面状态正常
+- [ ] Welcome 监控卡片与趋势图正常
+- [ ] 日志页面三类日志可见
+- [ ] 头像上传成功并可访问
+- [ ] WebSocket 在线状态正常
+- [ ] 关键配置页可保存
+- [ ] 至少一条定时任务处于启用状态
 
 ## CI/CD 集成
 

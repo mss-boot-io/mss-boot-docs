@@ -79,6 +79,7 @@ keywords: [admin mss-boot-admin]
 - [AI 注解协同规范](/admin/ai-annotation-spec)
 - [AI 注解产物模板](/admin/ai-annotation-templates)
 - [四期路线图](/admin/phase-4-roadmap)
+- [五期路线图](/admin/phase-5-roadmap)
 - [集成测试指南](/admin/integration-test-guide)
 - [本地联调](/admin/local-debug)
 - [国际化排障](/admin/i18n-troubleshooting)
