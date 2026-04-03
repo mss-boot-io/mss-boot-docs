@@ -39,7 +39,7 @@ keywords: [admin test cases integration e2e]
 - 浏览器：Chrome / Firefox / Safari
 
 ### 测试账号
-- 管理员：`admin` / `admin123`
+- 管理员：`admin` / `123456`（默认密码）
 - 普通用户：测试时创建
 
 ---
@@ -53,7 +53,7 @@ keywords: [admin test cases integration e2e]
 **测试步骤**：
 1. 访问登录页面 `/user/login`
 2. 输入正确用户名 `admin`
-3. 输入正确密码 `admin123`
+3. 输入正确密码 `123456`（默认密码）
 4. 点击登录按钮
 **预期结果**：
 - 登录成功
