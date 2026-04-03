@@ -81,6 +81,8 @@ keywords: [admin mss-boot-admin]
 - [四期路线图](/admin/phase-4-roadmap)
 - [五期路线图](/admin/phase-5-roadmap)
 - [HotGo 对比分析](/admin/hotgo-comparison)
+- [产品打磨与工程治理方案](/admin/product-polish-governance-plan)
+- [首轮整改清单](/admin/product-polish-remediation-round-1)
 - [生产部署标准化](/admin/production-standardization)
 - [发布验证清单](/admin/release-verification-checklist)
 - [性能与可观测性指南](/admin/observability-guide)
