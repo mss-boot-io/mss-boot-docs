@@ -57,6 +57,8 @@ keywords: [admin product direction roadmap ai annotation]
 - PAT、OAuth2、访问边界
 - 配置治理与环境隔离
 
+> **架构说明**: 当前为单租户架构，适合单一组织或团队的内部管理系统部署。多租户功能已在产品演进过程中移除。
+
 ## 2. 运营能力
 
 围绕后台日常运营与维护场景继续强化：
