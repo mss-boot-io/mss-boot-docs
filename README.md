@@ -41,6 +41,20 @@ pnpm start
 pnpm run build
 ```
 
+## Testing
+
+完整的测试文档请参考 [集成测试指南](/admin/integration-test-guide) 和各子项目的 README 文件：
+
+### 后端测试 (mss-boot-admin)
+- **单元测试**: `go test ./... -v -coverprofile=coverage.out`
+- **集成测试**: `go test -tags=integration ./...`
+- **覆盖率要求**: ≥80%
+
+### 前端测试 (mss-boot-admin-antd)
+- **单元测试**: `pnpm test --coverage`
+- **E2E 测试**: `pnpm e2e`
+- **覆盖率要求**: ≥80%
+
 ## 贡献说明
 
 - 文档面向开源协作者，尽量使用可验证、可复现、可讨论的表述。
