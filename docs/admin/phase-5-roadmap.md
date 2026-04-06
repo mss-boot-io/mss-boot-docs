@@ -29,6 +29,7 @@ keywords: [admin roadmap phase5 planning production]
 | P3 | 性能与可观测性增强 | 指标、日志、追踪、慢点排查 | ✅ 已完成 |
 | P4 | 安全基线补强 | 配置安全、上传安全、凭据边界 | ✅ 已完成 |
 | P5 | 开源推广与示例完善 | 首页、README、示例项目、演示路径 | ✅ 已完成 |
+| P6 | 移动端 H5 适配 | 响应式布局、移动端菜单、主题适配 | ✅ 已完成 |
 
 ---
 
@@ -141,6 +142,109 @@ keywords: [admin roadmap phase5 planning production]
 
 ---
 
+## P6. 移动端 H5 适配 ✅
+
+### 背景
+
+前端仅支持桌面端，在手机浏览器中显示异常，无法满足移动办公场景。
+
+### 目标
+
+实现完整的移动端响应式适配，支持手机浏览器正常使用所有管理功能。
+
+### 功能范围
+
+| 功能 | 说明 | 状态 |
+|------|------|------|
+| 移动端菜单 | Drawer 抽屉模式，支持主题适配 | ✅ 已完成 |
+| 页面宽度适配 | 100% 宽度，响应式布局 | ✅ 已完成 |
+| 主题兼容 | 深色/浅色主题自动切换 | ✅ 已完成 |
+| 管理模块适配 | 9个管理模块移动端视图 | ✅ 已完成 |
+| 个人中心适配 | 卡片布局，数据共享 | ✅ 已完成 |
+| 设置页面适配 | 顶部 Tabs 布局 | ✅ 已完成 |
+
+### 已适配模块
+
+| 模块 | 移动端组件 | 说明 |
+|------|-----------|------|
+| 用户管理 | MobileUserList | 卡片式列表 |
+| 角色管理 | MobileRoleList | 卡片式列表，支持授权 |
+| 部门管理 | MobileDepartmentList | 卡片式列表，树形结构 |
+| 岗位管理 | MobilePostList | 卡片式列表，树形结构 |
+| 菜单管理 | MobileMenuList | 卡片式列表，扁平化显示 |
+| 选项管理 | MobileOptionList | 卡片式列表 |
+| 任务管理 | MobileTaskList | 卡片式列表 |
+| 通知管理 | MobileNoticeList | 卡片式列表 |
+| 语言管理 | MobileLanguageList | 卡片式列表 |
+| 个人中心 | MobileCenter | 卡片式布局 |
+| 设置页面 | MobileSettings | 顶部 Tabs |
+
+### 实现说明
+
+**响应式检测：**
+```typescript
+// src/hooks/useResponsive.ts
+export const useResponsive = () => {
+  const screens = Grid.useBreakpoint();
+  return {
+    isMobile: !screens.md,    // < 768px
+    isDesktop: !!screens.lg,  // >= 992px
+  };
+};
+```
+
+**条件渲染：**
+```typescript
+// 页面组件根据屏幕尺寸选择渲染模式
+const { isMobile } = useResponsive();
+if (isMobile) {
+  return <MobileComponent />;
+}
+return <ProTable ... />;
+```
+
+**主题适配：**
+使用 Ant Design 5.x CSS 变量：
+- `--ant-color-bg-container`
+- `--ant-color-text`
+- `--ant-color-border`
+
+### 测试覆盖
+
+测试文件：`e2e/mobile.spec.ts`
+
+测试结果：
+```
+Running 10 tests using 6 workers
+10 passed (25.7s)
+```
+
+测试场景：
+- 移动端菜单显示（7个菜单项）
+- 页面宽度适配（366px / 390px viewport）
+- 用户数据渲染（2条记录）
+- 个人中心移动端组件
+- 设置页面移动端组件
+- 主题切换支持
+
+### 产物
+
+- `src/hooks/useResponsive.ts` - 响应式检测 Hook
+- `src/styles/mobile.less` - 通用移动端样式
+- `src/pages/*/Mobile/*.tsx` - 11个移动端组件
+- `e2e/mobile.spec.ts` - 移动端测试用例
+- [移动端 H5 适配说明](/admin/mobile-h5-adaptation)
+
+### 验收结果
+
+- [x] 移动端菜单正常显示
+- [x] 所有管理页面适配移动端
+- [x] 主题切换正常工作
+- [x] 测试用例全部通过
+- [x] 文档已完善
+
+---
+
 ## 五期完成总结
 
 五期没有继续扩张大量新功能，而是把四期成果组织成了更适合生产和开源协作的交付形态：
@@ -150,6 +254,36 @@ keywords: [admin roadmap phase5 planning production]
 - 可观测性路径更清晰
 - 安全边界更明确
 - 对外表达更统一
+- **移动端体验更完善**（P6 新增）
+
+### 核心成果
+
+**生产部署：**
+- ✅ 单机/容器/Nginx 反向代理部署方案
+- ✅ 部署前检查与发布后巡检清单
+
+**质量保障：**
+- ✅ 集成测试指南
+- ✅ 发布验证清单
+- ✅ E2E 测试体系
+
+**可观测性：**
+- ✅ 系统监控、日志、追踪能力
+- ✅ 容量评估与问题排查路径
+
+**安全基线：**
+- ✅ 配置安全建议
+- ✅ 凭据注入方式
+- ✅ 上传与通知安全
+
+**开源推广：**
+- ✅ README 与首页叙事统一
+- ✅ 推荐阅读路径清晰
+
+**移动端适配（P6 新增）：**
+- ✅ 11个模块移动端视图
+- ✅ 响应式布局与主题适配
+- ✅ 10个测试用例全部通过
 
 ## 推荐阅读
 
@@ -159,3 +293,4 @@ keywords: [admin roadmap phase5 planning production]
 - [发布验证清单](/admin/release-verification-checklist)
 - [性能与可观测性指南](/admin/observability-guide)
 - [安全基线指南](/admin/security-baseline)
+- [移动端 H5 适配说明](/admin/mobile-h5-adaptation)

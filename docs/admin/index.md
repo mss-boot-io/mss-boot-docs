@@ -34,6 +34,7 @@ keywords: [admin mss-boot-admin]
 ## ✨ 特性
 
 - 支持国际化
+- 支持移动端 H5 响应式适配
 - 标准 Restful API 开发规范
 - 基于 Casbin 的 RBAC 权限管理
 - 基于 Gorm 的数据库存储
@@ -80,6 +81,7 @@ keywords: [admin mss-boot-admin]
 - [AI 注解产物模板](/admin/ai-annotation-templates)
 - [四期路线图](/admin/phase-4-roadmap)
 - [五期路线图](/admin/phase-5-roadmap)
+- [移动端 H5 适配说明](/admin/mobile-h5-adaptation)
 - [HotGo 对比分析](/admin/hotgo-comparison)
 - [产品打磨与工程治理方案](/admin/product-polish-governance-plan)
 - [首轮整改清单](/admin/product-polish-remediation-round-1)
