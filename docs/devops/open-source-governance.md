@@ -1,3 +1,13 @@
+---
+title: Open Source Governance
+order: 10
+nav:
+  order: 5
+  title: "devops"
+description: mss-boot-io open source governance, quality gates, release policy, and AI memory rules
+keywords: [open source, governance, quality gates, release, AI memory]
+---
+
 # Open Source Governance
 
 `mss-boot-io` uses a governance-first open source workflow. The goal is to keep

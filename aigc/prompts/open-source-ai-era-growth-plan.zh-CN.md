@@ -3,7 +3,7 @@
 ## 评估时间与数据来源
 
 - 评估时间：2026-06-04
-- 工作区：`/Users/linwenxiang/go/src/github.com/mss-boot-io`
+- 工作区：本地多仓库 workspace，根目录形态为 `<workspace>/mss-boot-io`
 - GitHub 组织：`https://github.com/mss-boot-io`
 - 数据来源：
   - `gh api orgs/mss-boot-io`

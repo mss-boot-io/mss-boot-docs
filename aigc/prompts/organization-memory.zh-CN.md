@@ -4,7 +4,7 @@
 
 - 读取时间：2026-06-04
 - 更新确认：2026-06-04，`mss-boot-admin` 与 `mss-boot-admin-antd` 已补齐 `aigc` 目录
-- 工作区：`/Users/linwenxiang/go/src/github.com/mss-boot-io`
+- 工作区：本地多仓库 workspace，根目录形态为 `<workspace>/mss-boot-io`
 - 工作区形态：多 Git 仓库并列的 workspace，`mss-boot`、`mss-boot-admin`、`mss-boot-admin-antd`、`mss-boot-docs` 各自是独立 Git 仓库。
 - 关键约束：组织级记忆、跨仓库流程、发布策略和多 agent 协作规则必须落盘到 `mss-boot-docs`，否则在多 Git workspace 中容易随单仓上下文切换而丢失。
 - 已发现的 `aigc` 目录：
