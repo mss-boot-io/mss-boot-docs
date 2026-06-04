@@ -103,13 +103,36 @@
 - 自动关闭历史 issue
 - 自动合并 Dependabot PR
 
+### 5. 治理 PR 发布结果
+
+以下治理改动已通过 PR 发布到默认分支：
+
+| 仓库 | PR | 结果 |
+| --- | --- | --- |
+| `mss-boot-io/.github` | [#1 chore: add organization open source governance baseline](https://github.com/mss-boot-io/.github/pull/1) | 已合并 |
+| `mss-boot-io/.github` | [#2 ci: update pages deploy action](https://github.com/mss-boot-io/.github/pull/2) | 已合并 |
+| `mss-boot-io/mss-boot` | [#351 chore: strengthen open source governance](https://github.com/mss-boot-io/mss-boot/pull/351) | 已合并；`go test ./...`、`govulncheck`、CodeQL、PR Guard、Docs Drift 通过 |
+| `mss-boot-io/mss-boot-admin` | [#347 chore: strengthen open source governance](https://github.com/mss-boot-io/mss-boot-admin/pull/347) | 已合并；`go test ./...`、`govulncheck`、CodeQL、PR Guard、Docs Drift 通过 |
+| `mss-boot-io/mss-boot-admin-antd` | [#74 chore: strengthen frontend governance baseline](https://github.com/mss-boot-io/mss-boot-admin-antd/pull/74) | 已合并；`pnpm tsc`、`pnpm lint:js`、登录单测、`pnpm build:local`、GitHub CI、CodeQL、Cloudflare alpha build、PR Guard、Docs Drift 通过 |
+| `mss-boot-io/mss-boot-docs` | [#7 docs: add open source governance memory](https://github.com/mss-boot-io/mss-boot-docs/pull/7) | 已合并；`pnpm build`、CodeQL、PR Guard、Docs Drift 通过 |
+
+`mss-boot-admin-antd` PR #74 曾触发 CodeQL XSS/open redirect 告警，已在同一 PR 中修复为只允许登录 `redirect` 指向同源路径；合并后 `main` 分支公开 CodeQL open alerts 查询结果为空。
+
 ## 验收记录
 
 - `gh auth status` 显示已登录 `github.com`，身份为 `lwnmengjing`。
 - 四核心仓库均能查询到新建的 `good first issue`。
 - `mss-boot-admin` 历史 open issue 已包含新的 taxonomy 标签。
 - Dependabot PR 已通过 REST issue labels API 加入 triage 队列标签。
+- 每个核心仓库当前都有 3 个打开的 `good first issue`。
+- GitHub Community Profile 公开健康度复核：
+  - `.github`：62
+  - `mss-boot`：87
+  - `mss-boot-admin`：100
+  - `mss-boot-admin-antd`：100
+  - `mss-boot-docs`：87
+- `mss-boot` 与 `mss-boot-docs` 剩余公开健康度缺口主要来自 `content_reports_enabled=false` 等仓库设置项，不是本地文件缺失。
 
 ## 后续复核
 
-本次公开运营动作已经直接生效，但本地源码侧社区健康文件、workflow 和文档仍需通过对应仓库的分支/PR 发布到 GitHub 后，GitHub Community Profile 与 Scorecard 才会反映新的治理状态。
+本次可直接执行的公开运营动作、源码治理文件、workflow 与文档已经发布到 GitHub。后续若维护者完成 branch protection、required checks、content reporting、private vulnerability reporting、Discussions、Projects、Sponsors/FUNDING 等外部设置，应继续追加记录到 `open-source-operations-backlog.zh-CN.md` 或新的执行记录中。

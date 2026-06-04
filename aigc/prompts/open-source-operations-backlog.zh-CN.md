@@ -10,13 +10,13 @@
 
 | 事项 | 建议配置 | 原因 | 执行人 |
 | --- | --- | --- | --- |
-| 合并组织 `.github` 仓库变更 | 将默认社区健康文件和 reusable workflows 发布到 `mss-boot-io/.github@main` | 组织默认模板和 reusable workflows 只有发布后才会被其他仓库使用 | Maintainer |
 | Branch protection / rulesets | 保护 `main`，禁止 force push，要求 PR，要求 CI、CodeQL、govulncheck、Scorecard 通过 | OpenSSF Scorecard 与真实贡献门禁都依赖此设置 | Maintainer |
 | Required checks | Go 仓：CI、CodeQL、govulncheck、Scorecard；前端/文档：CI、CodeQL、Scorecard | 防止未验证改动进入主分支 | Maintainer |
 | Private vulnerability reporting | 对核心仓库启用 GitHub private vulnerability reporting | 避免漏洞通过 public issue 披露 | Maintainer |
 | Security contact | 决定公开安全邮箱或 GitHub Advisories-only 策略 | `SECURITY.md` 当前记录为待定，需最终入口 | Maintainer |
 | Secret scanning / push protection | GitHub Advanced Security 可用时开启；免费能力可先依赖 secret scanning alert | 降低密钥泄漏风险 | Maintainer |
 | Dependabot security updates | 启用 security updates 与 grouped version updates | 依赖安全修复自动化 | Maintainer |
+| Content reporting | 将 `mss-boot`、`mss-boot-docs` 等仓库的 content reporting 打开 | GitHub Community Profile 复核显示这两个仓库 `content_reports_enabled=false`，会影响公开健康度 | Maintainer |
 
 ## P1：低成本社区运营设置
 
@@ -66,3 +66,13 @@
 - 是否影响 alpha/beta/prod 发布策略
 
 该记录应追加到本文件或后续治理记录文档中。
+
+## 2026-06-05 已完成项
+
+- 组织 `.github` 治理基线已合并到 `main`。
+- 核心仓库治理 PR 已合并：`mss-boot`、`mss-boot-admin`、`mss-boot-admin-antd`、`mss-boot-docs`。
+- Labels 已同步到 `.github`、`mss-boot`、`mss-boot-admin`、`mss-boot-admin-antd`、`mss-boot-docs`。
+- 已创建 12 个低风险 `good first issue`，四个核心仓库各 3 个。
+- 已对 `mss-boot-admin` 历史 open issue 做轻量标签分流。
+- 已对现有 Dependabot PR 增加 triage 标签，不自动合并。
+- 未手动发布 Cloudflare beta/prod；仅 `mss-boot-admin-antd` PR #74 触发并通过已有 Cloudflare alpha build 检查。
