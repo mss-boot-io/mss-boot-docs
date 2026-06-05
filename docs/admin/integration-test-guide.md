@@ -349,8 +349,8 @@ jobs:
   backend-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version: '1.26'
       - name: Run backend tests
@@ -366,11 +366,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: backend-test
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: '18'
-      - uses: pnpm/action-setup@v2
+          node-version: '24'
+      - uses: pnpm/action-setup@v6
         with:
           version: 8
       - name: Install dependencies
