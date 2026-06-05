@@ -1,9 +1,19 @@
 name: (prod) Deploy docs
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
+    paths:
+      - ".dumirc.ts"
+      - ".github/workflows/docs.yml"
+      - "aigc/**"
+      - "docs/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "public/**"
+      - "wrangler.toml"
 
 permissions:
   contents: read
@@ -46,6 +56,9 @@ jobs:
     needs: build
     name: deployment
     environment: prod
+    concurrency:
+      group: cloudflare-docs-prod
+      cancel-in-progress: false
     steps:
       - name: Checkout
         uses: actions/checkout@v6

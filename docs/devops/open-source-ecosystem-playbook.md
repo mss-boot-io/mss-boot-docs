@@ -89,17 +89,40 @@ or maintainer-only scripts. The default split is:
 | Security alerts | CodeQL code scanning and Copilot Autofix for public repositories | Review generated fixes before merge; never disclose private vulnerability context publicly. |
 | Review assistance | Copilot code review when enabled for the organization | Treat comments as advisory; maintainer remains accountable for acceptance. |
 | Issue drafting | GitHub Copilot issue creation/update and issue forms | Maintainer approves scope, labels, priority, and whether Copilot may be assigned. |
-| Implementation delegation | Copilot coding agent on bounded issues when enabled | Use only for low-to-medium-risk tasks with clear tests and non-goals. |
+| Implementation delegation | Copilot coding agent on bounded issues when enabled, backed by repository instructions and `copilot-setup-steps.yml` | Use only for low-to-medium-risk tasks with clear tests and non-goals. |
 
 Capabilities that are already safe to rely on in public CI should be encoded in
 workflow files. Capabilities that depend on organization policy, Copilot plans,
 GitHub Actions minutes, or security settings must be tracked as pending external
 configuration before use.
 
+Repository-level setup:
+
+- keep `.github/copilot-instructions.md` and `AGENTS.md` in sync so GitHub
+  Copilot and local agents share the same operating boundaries;
+- use `.github/workflows/copilot-setup-steps.yml` to preinstall Go or Node
+  dependencies for Copilot coding agent sessions;
+- group low-risk Dependabot updates where possible and keep explicit open PR
+  limits to avoid overwhelming a personal maintainer;
+- keep frontend Cloudflare deployments manual, and use concurrency locks for
+  public deployment workflows.
+
+Pending maintainer GitHub settings:
+
+- enable or review Copilot automatic code review at the organization or
+  repository level after confirming Actions minutes and Copilot plan impact;
+- configure branch rulesets so stable checks become required checks after the
+  current green CI baseline has held for several days;
+- enable private vulnerability reporting and review whether CodeQL Copilot
+  Autofix should be used for public alerts;
+- decide whether `mss-boot-admin` should inherit organization issue forms or
+  keep backend-specific local issue templates.
+
 Useful GitHub references:
 
 - [Copilot code review](https://docs.github.com/en/copilot/concepts/agents/code-review)
 - [Copilot coding agent](https://docs.github.com/en/copilot/concepts/coding-agent/coding-agent)
+- [Copilot coding agent setup steps](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment)
 - [Copilot issue creation and updates](https://docs.github.com/en/copilot/how-tos/use-copilot-for-common-tasks/use-copilot-to-create-or-update-issues)
 - [Copilot Autofix for code scanning](https://docs.github.com/en/code-security/concepts/code-scanning/copilot-autofix-for-code-scanning)
 
