@@ -25,6 +25,7 @@ handoffs.
 
 - [Open source AI-era growth plan](https://github.com/mss-boot-io/mss-boot-docs/blob/main/aigc/prompts/open-source-ai-era-growth-plan.zh-CN.md)
 - [Open source ecosystem playbook memory](https://github.com/mss-boot-io/mss-boot-docs/blob/main/aigc/prompts/open-source-ecosystem-playbook-2026-06-05.zh-CN.md)
+- [GitHub-first AI and CI delegation](https://github.com/mss-boot-io/mss-boot-docs/blob/main/aigc/prompts/github-first-ai-ci-delegation-2026-06-05.zh-CN.md)
 - [Good first issue factory](https://github.com/mss-boot-io/mss-boot-docs/blob/main/aigc/prompts/open-source-good-first-issue-factory.zh-CN.md)
 - [Operations backlog](https://github.com/mss-boot-io/mss-boot-docs/blob/main/aigc/prompts/open-source-operations-backlog.zh-CN.md)
 - [Community operations execution](https://github.com/mss-boot-io/mss-boot-docs/blob/main/aigc/prompts/open-source-community-ops-execution-2026-06-05.zh-CN.md)
