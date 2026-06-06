@@ -6,6 +6,10 @@ nav:
 description: 服务开发文档
 keywords: [coding]
 ---
+## 首次贡献
+
+- [首次贡献指南](/coding/first-contribution) - 30 分钟内完成一个小而有价值的首个 PR
+
 ## migrate
 > migrate模块用于数据库迁移，目前支持mysql和postgres等数据库
 
