@@ -14,6 +14,13 @@
 - `mss-boot-docs`
 - `mss-boot-monorepo`
 
+后续扩展扫描覆盖了非核心但公开可见的仓库：
+
+- `openpanel`
+- `meminfra`
+- `use-cmd-action`
+- `mss-boot-frontend`
+
 ## PR 治理结果
 
 - `mss-boot`、`mss-boot-admin`、`mss-boot-admin-antd`、`mss-boot-docs`
@@ -24,6 +31,19 @@
   升级到 `v7`。
 - `.github` 最新 main 检查已通过：GitHub Actions Mirror、CodeQL、
   OpenSSF Scorecard。
+- 合并 `meminfra` Dependabot PR `#2`、`#3`、`#4`、`#5`：分别升级
+  `actions/setup-go`、`actions/upload-artifact`、`actions/checkout`、
+  `github/codeql-action`。PR 检查与合并后的 main `CI`、`CodeQL` 均已通过。
+- `openpanel` Dependabot PR `#1` 到 `#10` 暂不合并。它们共同失败在
+  `Spell Check with Typos`，日志显示为仓库既有拼写基线问题，而不是单个依赖
+  PR 的变更导致。已新增 `blocked` 标签，并在每个 PR 留言指向 `openpanel#11`。
+- 关闭 `use-cmd-action` 的历史 Dependabot PR `#9`、`#15`、`#22`、`#59`、
+  `#81`、`#83`、`#87`、`#89`、`#90`。这些 PR 创建于 2022-2023 年，当前
+  已 `DIRTY`，且默认分支依赖状态已超过这些旧目标版本，按 superseded/stale
+  处理。
+- 关闭 `mss-boot-frontend` PR `#15`。这是 2022 年仅修改 package metadata
+  的遗留 PR，无检查、无后续上下文，按 stale/unverified 处理；如仍需要应基于
+  当前分支重新创建。
 
 ## Issue 治理结果
 
@@ -47,6 +67,11 @@
 - `mss-boot-monorepo`：
   - `#30` 是 2022 年旧 issue，仅有截图且缺少当前版本复现信息；已按
     `not planned` 关闭，并说明如当前 main 仍可复现应重新打开或新建 issue。
+- `openpanel`：
+  - 新建 `#11`：`ci: restore PR gate baseline before merging dependency updates`。
+    该 issue 记录 Typos PR gate 的仓库级基线问题，建议升级
+    `.github/workflows/tyops-check.yml`、固定 `crate-ci/typos` 稳定版本、修复或
+    精准 allowlist 既有拼写项，并补齐前端/Go 依赖 PR 的真实验证门禁。
 
 ## 治理原则
 
@@ -62,7 +87,9 @@
 
 ## 当前公开状态
 
-- 组织级搜索显示当前 open PR 为空。
+- 核心仓库当前没有遗留 open PR。
+- 组织级 open PR 主要剩余 `openpanel` 的 blocked Dependabot PR；这些 PR 有
+  公开阻塞说明，等待 `openpanel#11` 修复后再按风险分批评估。
 - 当前 open issue 主要由两类组成：
   - 可贡献的 `good first issue`；
   - 已分流的功能 backlog 或等待复现信息的 bug。
