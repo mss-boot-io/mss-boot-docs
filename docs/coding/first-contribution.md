@@ -18,7 +18,7 @@ keywords: [first contribution, pull request, docs, tests]
 | 仓库 | 适合改什么 | 常用验证命令 |
 | --- | --- | --- |
 | [`mss-boot-io/mss-boot-docs`](https://github.com/mss-boot-io/mss-boot-docs) | 文档、教程、FAQ、流程说明 | `pnpm install --frozen-lockfile && pnpm build` |
-| [`mss-boot-io/mss-boot`](https://github.com/mss-boot-io/mss-boot) | 框架能力、HTTP/GRPC 服务模块、配置与中间件 | `go test ./...` |
+| [`mss-boot-io/mss-boot`](https://github.com/mss-boot-io/mss-boot) | 框架能力、HTTP/gRPC 服务模块、配置与中间件 | `go test ./...` |
 | [`mss-boot-io/mss-boot-admin`](https://github.com/mss-boot-io/mss-boot-admin) | 后端业务能力、接口、治理能力 | `go test ./... -v -coverprofile=coverage.out` |
 | [`mss-boot-io/mss-boot-admin-antd`](https://github.com/mss-boot-io/mss-boot-admin-antd) | 前端页面、组件、交互和文档截图 | `pnpm test --coverage` |
 
