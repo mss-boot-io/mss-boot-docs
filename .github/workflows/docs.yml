@@ -45,7 +45,7 @@ jobs:
         run: tar -czvf dist.tar.gz dist
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: docs
           path: dist.tar.gz
@@ -75,7 +75,7 @@ jobs:
           cache: pnpm
 
       - name: Download Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: docs
 
@@ -83,7 +83,7 @@ jobs:
         run: tar -xzvf dist.tar.gz
 
       - name: deploy prod
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.cf_api_token }}
           wranglerVersion: "4"
