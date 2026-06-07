@@ -1,6 +1,13 @@
 # mss-boot-docs
 
+[![CI](https://github.com/mss-boot-io/mss-boot-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/mss-boot-io/mss-boot-docs/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/mss-boot-io/mss-boot-docs/actions/workflows/codeql.yml/badge.svg)](https://github.com/mss-boot-io/mss-boot-docs/actions/workflows/codeql.yml)
+[![OpenSSF Scorecard](https://github.com/mss-boot-io/mss-boot-docs/actions/workflows/scorecard.yml/badge.svg)](https://github.com/mss-boot-io/mss-boot-docs/actions/workflows/scorecard.yml)
+[![License](https://img.shields.io/github/license/mss-boot-io/mss-boot-docs.svg?style=flat-square)](https://github.com/mss-boot-io/mss-boot-docs/blob/main/LICENSE)
+
 `mss-boot-docs` 是 `mss-boot` 与 `mss-boot-admin` 的文档站点，基于 [dumi](https://d.umijs.org) 构建。
+
+公开站点：[https://docs.mss-boot-io.top](https://docs.mss-boot-io.top)
 
 当前文档重点围绕以下方向组织：
 
