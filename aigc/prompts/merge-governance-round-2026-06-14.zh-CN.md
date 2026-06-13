@@ -68,7 +68,7 @@
 - `mss-boot-admin-antd` main push checks 全绿。
 - `mss-boot-docs` #36 main push CI、CodeQL、OpenSSF Scorecard、docs prod deploy 全绿。
 - `mss-boot` 最新 main workflows 保持全绿。
-- `mss-boot-admin` PR checks 均在 merge 前全绿；最终 #395 main push 写入记忆时仍有 `govulncheck` 和 `CodeQL` push workflow 在跑，需要后续确认。
+- `mss-boot-admin` PR checks 均在 merge 前全绿；最终 #395 main push 的 `govulncheck`、`CodeQL`、`Swagger`、OpenSSF Scorecard、GitHub Actions Mirror 均已成功。
 
 ## 遗留观察
 
