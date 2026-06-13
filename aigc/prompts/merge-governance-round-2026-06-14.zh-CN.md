@@ -70,14 +70,14 @@
 - `mss-boot` 最新 main workflows 保持全绿。
 - `mss-boot-admin` PR checks 均在 merge 前全绿；最终 #395 main push 的 `govulncheck`、`CodeQL`、`Swagger`、OpenSSF Scorecard、GitHub Actions Mirror 均已成功。
 
-## 遗留观察
+## 后续安全收敛
 
-- `mss-boot-docs` 仍有 Dependabot Updates 动态任务针对 esbuild 的失败记录。
+- `mss-boot-docs` 的 Dependabot Updates 动态任务显示 `esbuild` 最低安全版本为 `0.28.1`，原 override `0.25.11` 已无法满足安全更新要求。本轮后续验证将 override 提升到 `0.28.1` 后，`pnpm install --lockfile-only --ignore-scripts` 与 `pnpm build` 均通过。
 - `mss-boot-admin-antd` 仍有较早的 Dependabot Updates 动态任务针对 esbuild 的失败记录。
 - 这些 dynamic Dependabot Updates 不是刚才合并 PR 的 required check，但会影响开源仓库健康观感，后续应单独治理。
 
 ## 后续建议
 
-- 下一轮优先处理 docs/admin-antd 的 esbuild Dependabot Updates 失败，确认是 lockfile/overrides 配置问题还是 Dependabot grouping 问题。
+- 下一轮优先处理 `mss-boot-admin-antd` 的 esbuild Dependabot Updates 失败，确认是 lockfile/overrides 配置问题还是 Dependabot grouping 问题。
 - 对 Go 依赖 PR 继续保持“逐个合并、每合一个重新同步剩余 PR、等待 CI 全绿”的策略，避免多个依赖 PR 之间的 `go.mod`/`go.sum` 冲突进入主干。
 - 对社区 PR 继续坚持先回复、再验证、再 approve/merge 的节奏。
