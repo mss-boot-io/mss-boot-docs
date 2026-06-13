@@ -60,6 +60,27 @@
 - 依赖类 PR 已 approve，若仓库策略允许，可按常规 squash merge；如要批量合并，注意先确认 main 分支最新 CI。
 - docs 的 `#35` 与 `#36` 有 lockfile overlap，建议先合并安全收敛 PR，再让 Prettier PR rebase；或者反向操作，但必须保证最终 lockfile 来自同一次 `pnpm install --frozen-lockfile` 可验证状态。
 
+## 2026-06-14 复核更新
+
+- `mss-boot-admin#396`
+  - 作者已补 `20260614120000_repair_user_sessions.go`，使用新的唯一 13 位迁移前缀 `2026061412000` 对 `models.UserSession` 执行幂等 `AutoMigrate`。
+  - 该方案覆盖了此前指出的现有数据库升级路径：即便旧库已经记录 `2026060716205`，也会通过新的 repair migration 补建 `mss_boot_user_sessions`。
+  - PR body 已补 Security / Docs / Release impact，`aigc/prompts/migration-version-collision-repair-2026-06-14.zh-CN.md` 已记录根因和兼容策略。
+  - GitHub CI、CodeQL、govulncheck、PR Guard、Docs Drift 全绿。
+  - 本地复核：`go test ./cmd/migrate/migration/system` 通过；迁移文件 13 位前缀扫描无新增碰撞。
+  - 已执行：approve，并移除 `release-blocker` / `queue/feedback` 标签。
+
+- `mss-boot-admin-antd#114`
+  - 作者已补 Tests / Docs / Security / Release impact，并将 `Closes #94` 改为 `Follow-up to #94`。
+  - GitHub CI、CodeQL、PR Guard、Docs Drift 全绿。
+  - 代码层面仍维持上轮判断：drawer loading/error、i18n key、表格布局修复方向正确，未改变后端 API/权限契约。
+  - 已执行：approve，并移除 `queue/feedback` 标签。
+
+- 合并策略
+  - 本轮只 review/approve，没有 merge。
+  - 原因：用户本轮指令是“PR 有更新了，看下”；前端仓库仍需注意不要把 main 合并与 Cloudflare 发布节奏混在一起。
+  - 如果后续明确进入合并阶段，社区 PR 按 squash merge；前端上线仍遵守“本地/预发验证通过后再发 Cloudflare”的节奏。
+
 ## 社区互动口径
 
 - 对外部贡献者先肯定方向，再明确阻塞点，避免把流程问题说成代码否定。
