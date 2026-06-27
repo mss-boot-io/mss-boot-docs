@@ -72,20 +72,50 @@
 - audit 从 25 个 moderate+ 告警降到 20 个，已移除本轮可低风险修复的 `hono`、`piscina`、`form-data`、`@babel/core`、`js-yaml` 相关项。
 - 剩余告警主要来自旧前端栈和运行时包：`immer`、`mockjs`、`node-fetch`、`path-to-regexp`、`braces`、`micromatch`、`ws`、`@babel/runtime`、`ajv` 等。不要在同一个小 PR 中强行大范围 override，后续应通过 `mss-boot-admin-antd#101` 的前端工具链迁移 RFC 拆分处理。
 
+## GitHub 合并结果
+
+### 已合并 PR
+
+- `mss-boot-docs#49`：`chore(deps): harden docs toolchain overrides`
+  - 合并提交：`fd7a176ad7e7801816417af9320ce913290864ec`
+  - PR CI、CodeQL、PR Guard、docs drift 通过；main 上 CI、CodeQL、OpenSSF Scorecard、docs deploy 通过。
+  - 已在 `mss-boot-docs#32` 补充维护说明：`https://github.com/mss-boot-io/mss-boot-docs/issues/32#issuecomment-4814600482`
+- `mss-boot-admin-antd#119`：`chore(deps): harden frontend toolchain overrides`
+  - 合并提交：`0394b49b5c6a086754b640ff2dc826f7c61bb4e4`
+  - PR CI、CodeQL、PR Guard、docs drift 通过；main 上 CI、CodeQL、OpenSSF Scorecard、GitHub Actions Mirror 通过。
+- `mss-boot-admin-antd#120`：`chore(deps): resolve frontend security overrides`
+  - 合并提交：`cf5a8a405c6ff888438ac169328395bffe159b54`
+  - 本轮新增安全覆盖：`@babel/runtime`、`braces`、`micromatch`、`send`、`ws`、`ajv`、`cross-spawn`、`immer`
+  - 移除未直接使用的 `mockjs` dev 依赖；剩余 `mockjs` 仅来自 Umi OpenAPI 工具链。
+  - 本地验证通过：冻结/离线安装、`lint:js`、`tsc`、`test -- --runInBand`、`build:local`、`git diff --check`。
+  - PR CI、CodeQL、PR Guard、docs drift 通过；main 上 CI、CodeQL、OpenSSF Scorecard、GitHub Actions Mirror 通过。
+  - 已在 `mss-boot-admin-antd#101` 补充维护说明：`https://github.com/mss-boot-io/mss-boot-admin-antd/issues/101#issuecomment-4814654584`
+
+### admin-antd 安全状态
+
+- `#119` 后 audit 从 25 个 moderate+ 收敛到 20 个。
+- `#120` 后本地 `pnpm audit --audit-level=moderate` 剩余 7 个漏洞：3 low、4 high。
+- 剩余 high 项不应继续用小范围 override 快速合并：
+  - `node-fetch` 来自旧 `braft-editor` / `draft-js` / `isomorphic-fetch` 链路，需要富文本编辑器替换或兼容验证。
+  - `path-to-regexp` 来自 Umi / Pro Layout 路由链路，需要页面路由和 beta smoke 验证。
+  - `mockjs` 来自 Umi OpenAPI 工具链，且 upstream 无 patched version，需要工具链替换策略。
+- `elliptic` 等 low/no-patched-version 项继续作为供应链卫生债跟踪，不做不可验证的临时 patch。
+
 ## 后续建议
 
-- 优先合并本轮两个安全 PR，降低 docs 和 admin-antd 新增 Dependabot 告警噪音。
-- 对 admin-antd 剩余高危项拆分为两类：
-  - 低风险 dev-only override：`braces`、`micromatch`、`ws`、`@babel/runtime`、`ajv`
-  - 需要业务/运行时验证或替代方案：`mockjs`、`immer`、`node-fetch`、`path-to-regexp`
+- 下一轮 admin-antd 安全治理应从 RFC 进入实现：
+  - 富文本编辑器链路替换或隔离，目标是移除 `braft-editor` / `draft-js` 带来的 `node-fetch` 旧链路。
+  - Umi / Pro Layout / routing 链路升级，目标是移除 `path-to-regexp` 旧版本链路。
+  - OpenAPI mock 工具链替换，目标是移除无补丁的 `mockjs`。
+- 上述三项都需要 beta smoke plan 和 rollback plan，不能走无运行时验证的直接 override。
 - docs 的 `elliptic` low 因无 patched version，建议继续保留在安全 FAQ 和 RFC 中跟踪，避免制造不可验证的临时 patch。
 
 ## 外部社区草稿
 
 ### 中文短帖
 
-mss-boot 本周继续推进开源治理和供应链安全：docs 工具链安全告警已收敛到 only-low，admin-antd 也完成一轮低风险依赖 override 修复，覆盖 hono、piscina、form-data、@babel/core、js-yaml 等可补丁项。剩余旧前端栈问题会按 RFC 拆分迁移，欢迎对 Umi/DVA/Mock 迁移有经验的同学参与 review。
+mss-boot 本周继续推进开源治理和供应链安全：docs 工具链安全告警已收敛到 only-low，admin-antd 连续合并两轮低风险依赖修复，覆盖 hono、piscina、form-data、@babel/core、js-yaml、@babel/runtime、braces、ws、ajv、cross-spawn、immer 等可验证项。剩余旧前端栈问题会按 RFC 拆分迁移，欢迎对 Umi/Pro Layout/富文本编辑器/OpenAPI mock 迁移有经验的同学参与 review。
 
 ### English Short Post
 
-mss-boot continued its open-source governance and supply-chain hardening work this week. The docs toolchain is now reduced to low-only audit findings, and admin-antd received a focused dependency override update for hono, piscina, form-data, @babel/core, and js-yaml. The remaining legacy frontend stack risks will be handled through RFC-driven migration work. Reviews and migration experience around Umi/DVA/Mock are welcome.
+mss-boot continued its open-source governance and supply-chain hardening work this week. The docs toolchain is now reduced to low-only audit findings, and admin-antd merged two focused dependency hardening rounds covering hono, piscina, form-data, @babel/core, js-yaml, @babel/runtime, braces, ws, ajv, cross-spawn, and immer. The remaining legacy frontend stack risks will move through RFC-driven migration work. Reviews around Umi/Pro Layout, rich-text editor, and OpenAPI mock migration are welcome.
