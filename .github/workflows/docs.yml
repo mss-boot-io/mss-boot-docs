@@ -6,14 +6,14 @@ on:
     branches:
       - main
     paths:
-      - ".dumirc.ts"
-      - ".github/workflows/docs.yml"
-      - "aigc/**"
-      - "docs/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "public/**"
-      - "wrangler.toml"
+      - '.dumirc.ts'
+      - '.github/workflows/docs.yml'
+      - 'aigc/**'
+      - 'docs/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'public/**'
+      - 'wrangler.toml'
 
 permissions:
   contents: read
@@ -86,5 +86,6 @@ jobs:
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.cf_api_token }}
-          wranglerVersion: "4"
+          packageManager: npm
+          wranglerVersion: '4'
           command: deploy --env prod

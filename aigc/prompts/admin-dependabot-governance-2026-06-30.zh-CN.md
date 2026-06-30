@@ -51,6 +51,8 @@
   - 同时配置 `go-version` 和 `go-version-file`，实际只使用 `go-version`。
 - 落盘本记忆时发现 `mss-boot-docs` 在本地 pnpm 11 下会忽略 `package.json#pnpm.overrides`，导致 frozen install 与 lockfile overrides 不匹配。
 - 已在 docs 仓库补充 `pnpm-workspace.yaml`，将 overrides 和 pnpm 11 的 `allowBuilds` 写入 workspace 配置，同时保留 `package.json#pnpm.overrides` 兼容当前 GitHub workflow 使用的 pnpm 9。
+- `pnpm-workspace.yaml` 合入 main 后，docs prod deploy 首次失败：`cloudflare/wrangler-action@v4` 推断使用 pnpm 安装 Wrangler，并执行 `pnpm add wrangler@4`，被 workspace root check 拦截。
+- 修复方式：在 docs deploy workflow 的 `wrangler-action@v4` 中显式设置 `packageManager: npm`，避免部署阶段依赖 pnpm workspace root 安装语义。
 
 ## 后续建议
 
