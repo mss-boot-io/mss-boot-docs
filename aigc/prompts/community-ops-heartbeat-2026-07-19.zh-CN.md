@@ -15,7 +15,7 @@
 - 2026-07-18T00:00:00Z 后没有新的外部人工 issue comment 或 PR review comment。
 - GitHub AI 反馈：Copilot 在 `mss-boot-io/mss-boot-docs#60` 指出历史记忆文件里的短仓库引用会在跨平台转发时产生歧义；本轮已将 2026-07-18 记忆统一为完整 `mss-boot-io/repo#num` 风格。
 - 新增 Dependabot PR `mss-boot-io/mss-boot#399`：`actions/setup-go` `6 -> 7`，只改 GitHub Actions workflow，checks 全绿，当前 `REVIEW_REQUIRED`。
-- `mss-boot-io/mss-boot-admin#413` 仍是当前最大 release-health blocker：main scheduled `govulncheck` 继续失败，并阻塞 `mss-boot-io/mss-boot-admin#412`、`mss-boot-io/mss-boot-admin#415` 等依赖治理 PR。
+- `mss-boot-io/mss-boot-admin#413` 仍是当前主要 release-health blocker 之一：main scheduled `govulncheck` 继续失败，并阻塞 `mss-boot-io/mss-boot-admin#412`、`mss-boot-io/mss-boot-admin#415` 等依赖治理 PR。
 - 本轮未在非 GitHub 外部社区发布或回复内容。
 
 ## 主分支流水线
@@ -46,7 +46,7 @@
   - 被 root `govulncheck` 失败阻塞，不是 workflow 升级本身导致
 - `mss-boot-io/mss-boot-admin#412`：`github.com/hashicorp/consul/api` `1.34.3 -> 1.34.4`
   - 仍被同一 root `govulncheck` 问题阻塞
-- `mss-boot-io/mss-boot-admin#413` 是当前权威跟踪 issue：优先判断 `pkg/gist.go` / GitHub helper 是否仍应留在 root module；如果只是维护工具，建议移除、替换或隔离，恢复应用 CI 的安全信号。
+- `mss-boot-io/mss-boot-admin#413` 是当前主要跟踪 issue：优先判断 `pkg/gist.go` / GitHub helper 是否仍应留在 root module；如果只是维护工具，建议移除、替换或隔离，恢复应用 CI 的安全信号。
 - 当前 open Dependabot alerts 为 0。
 
 ### mss-boot-admin-antd
