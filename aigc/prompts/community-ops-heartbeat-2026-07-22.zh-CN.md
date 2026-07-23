@@ -48,7 +48,7 @@
 ### mss-boot-admin-antd
 
 - 新增 `mss-boot-io/mss-boot-admin-antd#126`：`axios` `0.32.0 -> 0.33.0+` 安全升级跟踪。
-  - Dependabot 无法自动开 PR，失败根因为 `security_update_not_possible`
+  - Dependabot 无法自动开 PR，失败根因是 `security_update_not_possible`
   - 公开代码中 `package.json` 的 `pnpm.overrides.axios` 固定为 `0.32.0`
   - 该任务应只做本地验证和 GitHub PR，不触发 Cloudflare 发布
 - `mss-boot-io/mss-boot-admin-antd#124`：`actions/setup-node` `6 -> 7`
